@@ -1,7 +1,6 @@
 import org.ejml.simple.SimpleMatrix;
 import utilities.Sigmoid;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -9,9 +8,9 @@ import java.util.Random;
  */
 public class NeuralNetwork {
 
-    private static final double LEARNING_RATE = 0.1;
-
     Random r = new Random();
+
+    private double learningRate = 0.1;
 
     // "size" of the neural network
     private int inputNodes;
@@ -93,7 +92,7 @@ public class NeuralNetwork {
     private SimpleMatrix calculateGradient(SimpleMatrix layer, SimpleMatrix error){
         SimpleMatrix gradient = Sigmoid.applySigmoid(layer, true);
         gradient = gradient.elementMult(error);
-        return gradient.scale(LEARNING_RATE);
+        return gradient.scale(learningRate);
     }
 
     private SimpleMatrix calculateDeltas(SimpleMatrix gradient, SimpleMatrix layer){
@@ -104,4 +103,13 @@ public class NeuralNetwork {
         double[][] input = {i};
         return new SimpleMatrix(input).transpose();
     }
+
+    public double getLearningRate() {
+        return learningRate;
+    }
+
+    public void setLearningRate(double learningRate) {
+        this.learningRate = learningRate;
+    }
+
 }

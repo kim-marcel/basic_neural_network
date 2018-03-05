@@ -11,4 +11,4 @@ This is a very basic Java Neural Network library using EJML (Efficient Java Matr
 
 ## TODO
 
-- add support for multy-layered Neural Networks
+- Add support for multy-layered Neural Net works
