@@ -1,5 +1,7 @@
 import org.ejml.simple.SimpleMatrix;
+import utilities.Sigmoid;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -11,7 +13,7 @@ public class NeuralNetwork {
 
     Random r = new Random();
 
-    // variables which store the "size" of the neural network
+    // "size" of the neural network
     private int inputNodes;
     private int hiddenNodes;
     private int outputNodes;
@@ -39,13 +41,20 @@ public class NeuralNetwork {
     }
 
     // feedForward method, input is a one column matrix with the input values
-    public SimpleMatrix feedForward(SimpleMatrix inputs){
+    public SimpleMatrix feedForward(double[] i){
+        // transform array to matrix
+        SimpleMatrix inputs = arrayToMatrix(i);
+
         SimpleMatrix hidden = calculateLayer(weightsIH, biasH, inputs);
         SimpleMatrix output = calculateLayer(weightsHO, biasO, hidden);
         return output;
     }
 
-    public void train(SimpleMatrix inputs, SimpleMatrix targets){
+    public void train(double[] i, double[] t){
+        // transform 2d array to matrix
+        SimpleMatrix inputs = arrayToMatrix(i);
+        SimpleMatrix targets = arrayToMatrix(t);
+
         // calculate outputs of hidden and output layer for the given inputs
         SimpleMatrix hidden = calculateLayer(weightsIH, biasH, inputs);
         SimpleMatrix outputs = calculateLayer(weightsHO, biasO, hidden);
@@ -70,8 +79,6 @@ public class NeuralNetwork {
         biasH = biasH.plus(hiddenGradient);
     }
 
-    // ***** Helping methods: *****
-
     // generic function to calculate one layer
     private SimpleMatrix calculateLayer(SimpleMatrix weights, SimpleMatrix bias, SimpleMatrix input){
         // calculate outputs of layer
@@ -79,12 +86,12 @@ public class NeuralNetwork {
         // add bias to outputs
         result = result.plus(bias);
         // apply activation function and return result
-        result = applySigmoid(result, false);
+        result = Sigmoid.applySigmoid(result, false);
         return result;
     }
 
     private SimpleMatrix calculateGradient(SimpleMatrix layer, SimpleMatrix error){
-        SimpleMatrix gradient = applySigmoid(layer, true);
+        SimpleMatrix gradient = Sigmoid.applySigmoid(layer, true);
         gradient = gradient.elementMult(error);
         return gradient.scale(LEARNING_RATE);
     }
@@ -93,29 +100,8 @@ public class NeuralNetwork {
         return gradient.mult(layer.transpose());
     }
 
-    private SimpleMatrix applySigmoid(SimpleMatrix input, boolean derivative){
-        SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
-        for (int i = 0; i < input.numRows(); i++) {
-            for (int j = 0; j < input.numCols(); j++) {
-                double value = input.get(i, j);
-                // apply dsigmoid if derivative = true, otherwise usual sigmoid
-                if(derivative){
-                    output.set(i, j, dsigmoid(value));
-                }else {
-                    output.set(i, j, sigmoid(value));
-                }
-            }
-        }
-
-        return output;
-    }
-
-    private double sigmoid(double input){
-        return 1 / (1 + Math.exp(-input));
-    }
-
-    // derivative of sigmoid (not real derivative because sigmoid function has already been applied to the input)
-    private double dsigmoid(double input){
-        return input * (1 - input);
+    private SimpleMatrix arrayToMatrix(double[] i){
+        double[][] input = {i};
+        return new SimpleMatrix(input).transpose();
     }
 }
