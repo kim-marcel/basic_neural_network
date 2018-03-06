@@ -23,8 +23,20 @@ If you want to use this library you can [download](https://github.com/kim-marcel
 
 ## Documentation
 
-Coming soon...
+### Code example:
+
+```java
+// Neural Network with 2 inputs, 4 hidden nodes and 1 output
+NeuralNetwork nn = new Neuralnetwork(2, 4, 1);
+
+// Train the Neural Network with a Training Dataset
+nn.train(trainingDataInputs, trainingDataTargets);
+
+// guess for the given data is returned as a SimpleMatrix (EJML)
+nn.feedforward(testingData);
+```
 
 ## Upcoming features
 
 - Support for multiple layers
+- Save and load the neural network to a file
