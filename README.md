@@ -20,3 +20,11 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 ## TODO
 
 - Add support for multiple layers
+
+## Download
+
+If you want to use this library you can [download](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network.jar) v0.1-alpha. There might be a newer version available. Please check in release tab of this repository.
+
+## Documentation
+
+coming soon...
