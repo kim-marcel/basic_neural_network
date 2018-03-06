@@ -40,8 +40,8 @@ public class NeuralNetwork {
         biasO = SimpleMatrix.random64(outputNodes, 1, -1, 1, r);
     }
 
-    // feedForward method, input is a one column matrix with the input values
-    public double[][] feedForward(double[] i){
+    // guess method, input is a one column matrix with the input values
+    public double[][] guess(double[] i){
         // transform array to matrix
         SimpleMatrix inputs = arrayToMatrix(i);
 
