@@ -19,7 +19,7 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 
 ## Download
 
-If you want to use this library you can [download](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network.jar) v0.1-alpha here or check the release tab of this repository. There might be a newer version available.
+If you want to use this library you can [download](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network-v0.1-alpha.jar) v0.1-alpha here or check the release tab of this repository. There might be a newer version available.
 
 ## Documentation
 
