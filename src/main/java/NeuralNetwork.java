@@ -1,6 +1,7 @@
 import org.ejml.simple.SimpleMatrix;
 import utilities.Sigmoid;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -40,13 +41,13 @@ public class NeuralNetwork {
     }
 
     // feedForward method, input is a one column matrix with the input values
-    public SimpleMatrix feedForward(double[] i){
+    public double[][] feedForward(double[] i){
         // transform array to matrix
         SimpleMatrix inputs = arrayToMatrix(i);
 
         SimpleMatrix hidden = calculateLayer(weightsIH, biasH, inputs);
         SimpleMatrix output = calculateLayer(weightsHO, biasO, hidden);
-        return output;
+        return matrixToArray(output);
     }
 
     public void train(double[] i, double[] t){
@@ -102,6 +103,16 @@ public class NeuralNetwork {
     private SimpleMatrix arrayToMatrix(double[] i){
         double[][] input = {i};
         return new SimpleMatrix(input).transpose();
+    }
+
+    public double[][] matrixToArray(SimpleMatrix i){
+        double[][] result = new double[i.numRows()][i.numCols()];
+        for (int j = 0; j < result.length; j++) {
+            for (int k = 0; k < result[0].length; k++) {
+                result[j][k] = i.get(j, k);
+            }
+        }
+        return result;
     }
 
     public double getLearningRate() {
