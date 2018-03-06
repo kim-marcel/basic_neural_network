@@ -8,7 +8,7 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
  
 ## Features
 
-- Neural Network with variable amounts of Inputs, hidden nodes and outputs
+- Neural Network with variable amounts of inputs, hidden nodes and outputs
 - Two layered (hidden + output)
 - [Maven](https://maven.apache.org) Build-Management
 - [EJML](https://www.ejml.org) used for Matrix math
@@ -29,11 +29,11 @@ If you want to use this library you can [download](https://github.com/kim-marcel
 // Neural Network with 2 inputs, 4 hidden nodes and 1 output
 NeuralNetwork nn = new Neuralnetwork(2, 4, 1);
 
-// Train the Neural Network with a Training Dataset
+// Train the Neural Network with a training dataset
 nn.train(trainingDataInputs, trainingDataTargets);
 
-// guess for the given data is returned as a SimpleMatrix (EJML)
-nn.feedforward(testingData);
+// Guess for the given data is returned as a 2D array (double[][])
+nn.guess(testingData);
 ```
 
 ## Upcoming features
