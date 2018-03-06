@@ -21,20 +21,19 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 
 If you want to use this library you can [download](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network-v0.1-alpha.jar) v0.1-alpha here or check the release tab of this repository. There might be a newer version available.
 
-## Documentation
-
-### Code example:
+## Code example
 
 ```java
 // Neural Network with 2 inputs, 4 hidden nodes and 1 output
-NeuralNetwork nn = new Neuralnetwork(2, 4, 1);
+NeuralNetwork nn = new NeuralNetwork(2, 4, 1);
 
 // Train the Neural Network with a training dataset
 nn.train(trainingDataInputs, trainingDataTargets);
 
-// Guess for the given data is returned as a 2D array (double[][])
+// Guess for the given testing data is returned as a 2D array (double[][])
 nn.guess(testingData);
 ```
+For a more detailed example check out [this](https://github.com/kim-marcel/xor_with_nn) repository.
 
 ## Upcoming features
 
