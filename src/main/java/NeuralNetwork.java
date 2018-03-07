@@ -1,7 +1,11 @@
 import org.ejml.simple.SimpleMatrix;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import utilities.MatrixConverter;
 import utilities.Sigmoid;
 
-import java.util.Arrays;
+import java.io.*;
 import java.util.Random;
 
 /**
@@ -21,11 +25,11 @@ public class NeuralNetwork {
     private SimpleMatrix weightsIH; // matrix with weights between input and hidden layer
     private SimpleMatrix weightsHO; // matrix with weights between hidden and output layer
 
-    private SimpleMatrix biasH;
-    private SimpleMatrix biasO;
+    private SimpleMatrix biasH; // bias of the hidden layer
+    private SimpleMatrix biasO; // bias of the output layer
 
     // Constructor
-    // generate a new neural network with 1 hidden layer with the given amount of nodes in the layers
+    // generate a new neural network with 1 hidden layer with the given amount of nodes in the individual layers
     public NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes){
         this.inputNodes = inputNodes;
         this.hiddenNodes = hiddenNodes;
@@ -43,17 +47,17 @@ public class NeuralNetwork {
     // guess method, input is a one column matrix with the input values
     public double[][] guess(double[] i){
         // transform array to matrix
-        SimpleMatrix inputs = arrayToMatrix(i);
+        SimpleMatrix inputs = MatrixConverter.arrayToMatrix(i);
 
         SimpleMatrix hidden = calculateLayer(weightsIH, biasH, inputs);
         SimpleMatrix output = calculateLayer(weightsHO, biasO, hidden);
-        return matrixToArray(output);
+        return MatrixConverter.matrixToArray(output);
     }
 
     public void train(double[] i, double[] t){
         // transform 2d array to matrix
-        SimpleMatrix inputs = arrayToMatrix(i);
-        SimpleMatrix targets = arrayToMatrix(t);
+        SimpleMatrix inputs = MatrixConverter.arrayToMatrix(i);
+        SimpleMatrix targets = MatrixConverter.arrayToMatrix(t);
 
         // calculate outputs of hidden and output layer for the given inputs
         SimpleMatrix hidden = calculateLayer(weightsIH, biasH, inputs);
@@ -100,19 +104,52 @@ public class NeuralNetwork {
         return gradient.mult(layer.transpose());
     }
 
-    private SimpleMatrix arrayToMatrix(double[] i){
-        double[][] input = {i};
-        return new SimpleMatrix(input).transpose();
+    public void writeToFile(){
+        JSONObject obj = new JSONObject();
+        obj.put("weightsIH", MatrixConverter.matrixToJSON(weightsIH));
+        obj.put("weightsHO", MatrixConverter.matrixToJSON(weightsHO));
+        obj.put("biasH", MatrixConverter.matrixToJSON(biasH));
+        obj.put("biasO", MatrixConverter.matrixToJSON(biasO));
+
+        try (FileWriter file = new FileWriter("nn_data.json")) {
+
+            file.write(obj.toJSONString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public double[][] matrixToArray(SimpleMatrix i){
-        double[][] result = new double[i.numRows()][i.numCols()];
-        for (int j = 0; j < result.length; j++) {
-            for (int k = 0; k < result[0].length; k++) {
-                result[j][k] = i.get(j, k);
-            }
+    public void readFromFile(){
+        JSONParser parser = new JSONParser();
+
+        try {
+
+            Object obj = parser.parse(new FileReader("nn_data.json"));
+
+            JSONObject nnData = (JSONObject) obj;
+
+            JSONObject weightsIHJSON = (JSONObject) nnData.get("weightsIH");
+            JSONObject weightsHOJSON = (JSONObject) nnData.get("weightsHO");
+
+            weightsIH = MatrixConverter.jsonToMatrix(weightsIHJSON);
+            weightsHO = MatrixConverter.jsonToMatrix(weightsHOJSON);
+
+            JSONObject biasHJSON = (JSONObject) nnData.get("biasH");
+            JSONObject biasOJSON = (JSONObject) nnData.get("biasO");
+
+            biasH = MatrixConverter.jsonToMatrix(biasHJSON);
+            biasO = MatrixConverter.jsonToMatrix(biasOJSON);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        return result;
     }
 
     public double getLearningRate() {

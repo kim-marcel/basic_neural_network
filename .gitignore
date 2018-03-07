@@ -2,3 +2,4 @@
 target
 out
 artifacts
+nn_data.json

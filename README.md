@@ -12,16 +12,10 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 
 - Neural Network with variable amounts of inputs, hidden nodes and outputs
 - Two layered (hidden + output)
-- [Maven](https://maven.apache.org) Build-Management
+- Save the weights and biases of a NN to a JSON-file
+- Read a JSON-file with NN-data
 - [EJML](https://www.ejml.org) used for Matrix math
-
-## Examples (Usages)
-
-- [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
-
-## Download
-
-If you want to use this library you can [download](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network-v0.1-alpha.jar) v0.1-alpha here or check the release tab of this repository. There might be a newer version available.
+- [Maven](https://maven.apache.org) Build-Management
 
 ## Code example
 
@@ -29,15 +23,28 @@ If you want to use this library you can [download](https://github.com/kim-marcel
 // Neural Network with 2 inputs, 4 hidden nodes and 1 output
 NeuralNetwork nn = new NeuralNetwork(2, 4, 1);
 
+// Reads from a (previously generated) JSON-file the weights and biases of the NN
+nn.readFromFile();
+
 // Train the Neural Network with a training dataset
 nn.train(trainingDataInputs, trainingDataTargets);
 
 // Guess for the given testing data is returned as a 2D array (double[][])
 nn.guess(testingData);
+
+// Writes a JSON-file with the current "state" (weights and biases) of the NN
+nn.writeToFile();
 ```
-For a more detailed example check out [this](https://github.com/kim-marcel/xor_with_nn) repository.
+A more detailed example cam be found below.
+
+## Download
+
+If you want to use this library you can download [v0.1-alpha](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network-v0.1-alpha.jar) here or check the release tab of this repository.
+
+## Examples
+
+- [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
 
 ## Upcoming features
 
 - Support for multiple layers
-- Save and load the neural network to a file
