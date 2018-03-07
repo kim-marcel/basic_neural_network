@@ -15,7 +15,7 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 - Save the weights and biases of a NN to a JSON-file
 - Read a JSON-file with NN-data
 - [EJML](https://www.ejml.org) used for Matrix math
-- [Maven](https://maven.apache.org) Build-Management
+- [Maven](https://maven.apache.org) dependency-management
 
 ## Code example
 
@@ -39,7 +39,7 @@ A more detailed example cam be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.1-alpha](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1-alpha/basic_neural_network-v0.1-alpha.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.1.1-alpha](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.1.1-alpha/basic_neural_network-v0.1.1-alpha.jar) here or check the release tab of this repository.
 
 ## Examples
 
