@@ -3,3 +3,4 @@ target
 out
 artifacts
 nn_data.json
+src/main/java/Test.java

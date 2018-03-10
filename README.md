@@ -11,7 +11,9 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 ## Features
 
 - Neural Network with variable amounts of inputs, hidden nodes and outputs
-- Two layered (hidden + output)
+- Multiple hidden layers
+- Adjustable learning rate
+- Fully connected
 - Save the weights and biases of a NN to a JSON-file
 - Read a JSON-file with NN-data
 - [EJML](https://www.ejml.org) used for Matrix math
@@ -19,23 +21,42 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 
 ## Code example
 
+Constructors:
 ```java
-// Neural Network with 2 inputs, 4 hidden nodes and 1 output
-NeuralNetwork nn = new NeuralNetwork(2, 4, 1);
+// Neural network with 2 inputs, 4 hidden nodes and 1 output
+NeuralNetwork nn0 = new NeuralNetwork(2, 4, 1);
 
-// Reads from a (previously generated) JSON-file the weights and biases of the NN
-nn.readFromFile();
+// Neural network with 2 inputs, 2 hidden layers, 4 hidden nodes and 1 output
+NeuralNetwork nn1 = new NeuralNetwork(2, 2, 4, 1);
+```
 
-// Train the Neural Network with a training dataset
+Training and guessing:
+```java
+// Train the neural network with a training dataset (inputs and expected outputs)
 nn.train(trainingDataInputs, trainingDataTargets);
 
 // Guess for the given testing data is returned as a 2D array (double[][])
 nn.guess(testingData);
+```
+
+Read and write from/to file:
+```java
+// Reads from a (previously generated) JSON-file the nn-Data and returns a NeuralNetwork
+NeuralNetwork myNN = NeuralNetwork.readFromFile();
 
 // Writes a JSON-file with the current "state" (weights and biases) of the NN
-nn.writeToFile();
+myNN.writeToFile();
 ```
-A more detailed example cam be found below.
+
+Adjusting the learning rate:
+```java
+// Set the learning rate (Initially the learning rate is 0.1)
+nn.setLearningRate(0.01);
+
+// Get current learning rate
+nn.getLearningRate();
+```
+A more detailed example can be found below.
 
 ## Download
 
@@ -44,7 +65,3 @@ If you want to use this library you can download [v0.1.1-alpha](https://github.c
 ## Examples
 
 - [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
-
-## Upcoming features
-
-- Support for multiple layers
