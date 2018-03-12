@@ -6,7 +6,7 @@
 
     <groupId>com.kim-marcel.basic_neural_network</groupId>
     <artifactId>basic_neural_network</artifactId>
-    <version>v0.1-alpha</version>
+    <version>v0.2</version>
 
     <build>
         <plugins>
@@ -16,6 +16,23 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>j</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
             </plugin>
         </plugins>
