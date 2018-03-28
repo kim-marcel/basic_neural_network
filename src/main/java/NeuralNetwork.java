@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import utilities.MatrixConverter;
 import utilities.Sigmoid;
 
+import javax.swing.text.Utilities;
 import java.io.*;
 import java.util.Random;
 
@@ -80,7 +81,7 @@ public class NeuralNetwork {
     }
 
     // Guess method, input is a one column matrix with the input values
-    public double[][] guess(double[] input){
+    public double[] guess(double[] input){
         // Transform array to matrix
         SimpleMatrix output = MatrixConverter.arrayToMatrix(input);
 

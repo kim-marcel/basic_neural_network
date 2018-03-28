@@ -6,7 +6,7 @@
 
     <groupId>com.kim-marcel.basic_neural_network</groupId>
     <artifactId>basic_neural_network</artifactId>
-    <version>v0.2</version>
+    <version>v0.2.1</version>
 
     <build>
         <plugins>
@@ -31,7 +31,7 @@
                 </executions>
                 <configuration>
                     <descriptorRefs>
-                        <descriptorRef>j</descriptorRef>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
             </plugin>

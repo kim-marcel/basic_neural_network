@@ -35,7 +35,7 @@ Training and guessing:
 // Train the neural network with a training dataset (inputs and expected outputs)
 nn.train(trainingDataInputs, trainingDataTargets);
 
-// Guess for the given testing data is returned as a 2D array (double[][])
+// Guess for the given testing data is returned as an array (double[])
 nn.guess(testingData);
 ```
 
@@ -65,3 +65,4 @@ If you want to use this library you can download [v0.2](https://github.com/kim-m
 ## Examples
 
 - [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
+- [Doodle Classification in Processing](https://github.com/kim-marcel/doodle_classifier)
