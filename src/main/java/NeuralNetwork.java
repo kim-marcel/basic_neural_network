@@ -5,7 +5,6 @@ import org.json.simple.parser.ParseException;
 import utilities.MatrixConverter;
 import utilities.Sigmoid;
 
-import javax.swing.text.Utilities;
 import java.io.*;
 import java.util.Random;
 
