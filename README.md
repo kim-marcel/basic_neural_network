@@ -66,3 +66,5 @@ If you want to use this library you can download [v0.2.1](https://github.com/kim
 
 - [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
 - [Doodle Classification in Processing](https://github.com/kim-marcel/doodle_classifier)
+
+If you want you can add your own projects, that were build with this library, to this list. Pleas send me a pull request.
