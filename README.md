@@ -60,7 +60,7 @@ A more detailed example can be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.2.1](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.2/basic_neural_network-v0.2.1.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.2.1](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.2.1/basic_neural_network-v0.2.1.jar) here or check the release tab of this repository.
 
 ## Examples
 
