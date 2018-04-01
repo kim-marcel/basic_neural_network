@@ -14,7 +14,7 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 - Multiple hidden layers
 - Adjustable learning rate
 - Fully connected
-- Save the weights and biases of a NN to a JSON-file
+- Save the weights and biases of a NN to a JSON-file using (JSON.simple)[https://code.google.com/archive/p/json-simple/] library
 - Read a JSON-file with NN-data
 - [EJML](https://www.ejml.org) used for Matrix math
 - [Maven](https://maven.apache.org) dependency-management
