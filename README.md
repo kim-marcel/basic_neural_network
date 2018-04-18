@@ -14,10 +14,8 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 - Multiple hidden layers
 - Adjustable learning rate
 - Fully connected
-- Save the weights and biases of a NN to a JSON-file using [JSON.simple](https://code.google.com/archive/p/json-simple/) library
-- Read a JSON-file with NN-data
-- [EJML](https://www.ejml.org) used for Matrix math
-- [Maven](https://maven.apache.org) build- and dependency-management
+- Save the weights and biases of a NN to a JSON-file
+- Generate a NeuralNetwork-object from a JSON-file
 
 ## Use the library
 
@@ -41,7 +39,7 @@ nn.guess(testingData);
 
 Read and write from/to file:
 ```java
-// Reads from a (previously generated) JSON-file the nn-Data and returns a NeuralNetwork
+// Reads from a (previously generated) JSON-file the nn-Data and returns a NeuralNetwork-object
 NeuralNetwork myNN = NeuralNetwork.readFromFile();
 
 // Writes a JSON-file with the current "state" (weights and biases) of the NN
@@ -56,7 +54,7 @@ nn.setLearningRate(0.01);
 // Get current learning rate
 nn.getLearningRate();
 ```
-A more detailed example can be found below.
+More detailed examples can be found below.
 
 ## Download
 
@@ -78,3 +76,9 @@ If you want you can add your own projects, that were build with this library, to
 - more examples
 
 If you have any other suggestions on what should be done, feel free to open an issue or add it to this list.
+
+## Libraries & Tools used in this project
+
+- [EJML](https://www.ejml.org) used for Matrix math
+- [JSON.simple](https://code.google.com/archive/p/json-simple/) library
+- [Maven](https://maven.apache.org) build- and dependency-management
