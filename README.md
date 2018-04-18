@@ -17,13 +17,13 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 - Save the weights and biases of a NN to a JSON-file using [JSON.simple](https://code.google.com/archive/p/json-simple/) library
 - Read a JSON-file with NN-data
 - [EJML](https://www.ejml.org) used for Matrix math
-- [Maven](https://maven.apache.org) dependency-management
+- [Maven](https://maven.apache.org) build- and dependency-management
 
-## Code example
+## Use the library
 
 Constructors:
 ```java
-// Neural network with 2 inputs, 4 hidden nodes and 1 output
+// Neural network with 2 inputs, 1 hidden layer, 4 hidden nodes and 1 output
 NeuralNetwork nn0 = new NeuralNetwork(2, 4, 1);
 
 // Neural network with 2 inputs, 2 hidden layers, 4 hidden nodes and 1 output
@@ -67,4 +67,14 @@ If you want to use this library you can download [v0.2.1](https://github.com/kim
 - [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
 - [Doodle Classification in Processing](https://github.com/kim-marcel/doodle_classifier)
 
-If you want you can add your own projects, that were build with this library, to this list. Pleas send me a pull request.
+If you want you can add your own projects, that were build with this library, to this list. Please send me a pull request.
+
+## TODO
+
+- different activation functions (e.g. softmax)
+- support for genetic algorithms (mutate-functionality)
+- JUnit-tests
+- Javadoc documentation
+- more examples
+
+If you have any other suggestions on what should be done, feel free to open an issue or add it to this list.
