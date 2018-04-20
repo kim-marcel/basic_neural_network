@@ -1,9 +1,10 @@
+import activationfunctions.ActivationFunction;
+import activationfunctions.SigmoidActivationFunction;
 import org.ejml.simple.SimpleMatrix;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import utilities.MatrixConverter;
-import utilities.Sigmoid;
 
 import java.io.*;
 import java.util.Random;
@@ -13,7 +14,10 @@ import java.util.Random;
  */
 public class NeuralNetwork {
 
-    Random r = new Random();
+    private Random random = new Random();
+
+    // Sigmoid is the default ActivationFunction
+    private ActivationFunction activationFunction = new SigmoidActivationFunction();
 
     private double learningRate = 0.1;
 
@@ -57,11 +61,11 @@ public class NeuralNetwork {
         // Initialize the weights between the layers and fill them with random values
         for (int i = 0; i < weights.length; i++) {
             if(i == 0){ // 1st weights that connects inputs to first hidden layer
-                weights[i] = SimpleMatrix.random64(hiddenNodes, inputNodes, -1, 1, r);
+                weights[i] = SimpleMatrix.random64(hiddenNodes, inputNodes, -1, 1, random);
             }else if(i == weights.length - 1){ // last weights that connect last hidden layer to output
-                weights[i] = SimpleMatrix.random64(outputNodes, hiddenNodes, -1, 1, r);
+                weights[i] = SimpleMatrix.random64(outputNodes, hiddenNodes, -1, 1, random);
             }else{ // everything else
-                weights[i] = SimpleMatrix.random64(hiddenNodes, hiddenNodes, -1, 1, r);
+                weights[i] = SimpleMatrix.random64(hiddenNodes, hiddenNodes, -1, 1, random);
             }
         }
     }
@@ -72,9 +76,9 @@ public class NeuralNetwork {
         // Initialize the biases and fill them with random values
         for (int i = 0; i < biases.length; i++) {
             if(i == biases.length - 1){ // bias for last layer (output layer)
-                biases[i] = SimpleMatrix.random64(outputNodes, 1, -1, 1, r);
+                biases[i] = SimpleMatrix.random64(outputNodes, 1, -1, 1, random);
             }else{
-                biases[i] = SimpleMatrix.random64(hiddenNodes, 1, -1, 1, r);
+                biases[i] = SimpleMatrix.random64(hiddenNodes, 1, -1, 1, random);
             }
         }
     }
@@ -133,11 +137,11 @@ public class NeuralNetwork {
         // Add bias to outputs
         result = result.plus(bias);
         // Apply activation function and return result
-        return Sigmoid.applySigmoid(result, false);
+        return applyActivationFunction(result, false, activationFunction);
     }
 
     private SimpleMatrix calculateGradient(SimpleMatrix layer, SimpleMatrix error){
-        SimpleMatrix gradient = Sigmoid.applySigmoid(layer, true);
+        SimpleMatrix gradient = applyActivationFunction(layer, true, activationFunction);
         gradient = gradient.elementMult(error);
         return gradient.scale(learningRate);
     }
@@ -216,6 +220,34 @@ public class NeuralNetwork {
         }
 
         return nn;
+    }
+
+    // Applies an activation function to a matrix
+    // An object of an implementation of the ActivationFunction-interface has to be passed
+    // The function in this class will be applied
+    public SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative, ActivationFunction activationFunction){
+        SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
+        for (int i = 0; i < input.numRows(); i++) {
+            for (int j = 0; j < input.numCols(); j++) {
+                double value = input.get(i, j);
+                // Apply derivative of function (dfunction) if derivative = true, otherwise usual Activation
+                // Derivative has to be applied for error correction (back propagation)
+                if(derivative){
+                    output.set(i, j, activationFunction.function(value));
+                }else {
+                    output.set(i, j, activationFunction.dfunction(value));
+                }
+            }
+        }
+        return output;
+    }
+
+    private void setActivationFunction(ActivationFunction activationFunction) {
+        this.activationFunction = activationFunction;
+    }
+
+    private String getActivationFunctionName(){
+        return activationFunction.getName();
     }
 
     public double getLearningRate() {
