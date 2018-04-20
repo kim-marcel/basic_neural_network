@@ -19,7 +19,7 @@ public class NeuralNetwork {
 
     // Dimensions of the neural network
     private int inputNodes;
-    private int hiddenLayers; // only until multi layered networks are supported and parameter is added to constructor
+    private int hiddenLayers;
     private int hiddenNodes;
     private int outputNodes;
 
