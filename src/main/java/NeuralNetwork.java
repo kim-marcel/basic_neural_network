@@ -7,6 +7,8 @@ import org.json.simple.parser.ParseException;
 import utilities.MatrixConverter;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -14,12 +16,13 @@ import java.util.Random;
  */
 public class NeuralNetwork {
 
+    private Map<String, ActivationFunction> activationFunctionMap = new HashMap<String, ActivationFunction>();
+
     private Random random = new Random();
 
-    // Sigmoid is the default ActivationFunction
-    private ActivationFunction activationFunction = new SigmoidActivationFunction();
+    private String activationFunctionKey;
 
-    private double learningRate = 0.1;
+    private double learningRate;
 
     // Dimensions of the neural network
     private int inputNodes;
@@ -39,6 +42,7 @@ public class NeuralNetwork {
         this.hiddenNodes = hiddenNodes;
         this.outputNodes = outputNodes;
 
+        initializeDefaultValues();
         initializeWeights();
         initializeBiases();
     }
@@ -51,8 +55,23 @@ public class NeuralNetwork {
         this.hiddenNodes = hiddenNodes;
         this.outputNodes = outputNodes;
 
+        initializeDefaultValues();
         initializeWeights();
         initializeBiases();
+    }
+
+    private void initializeDefaultValues(){
+        learningRate = 0.1;
+
+        // Sigmoid is the default ActivationFunction
+        activationFunctionKey = ActivationFunction.SIGMOID;
+
+        // Fill map with all the activation functions
+        ActivationFunction sigmoid = new SigmoidActivationFunction();
+        activationFunctionMap.put(sigmoid.getName(), sigmoid);
+
+        ActivationFunction tanh = new SigmoidActivationFunction();
+        activationFunctionMap.put(tanh.getName(), tanh);
     }
 
     private void initializeWeights(){
@@ -137,11 +156,11 @@ public class NeuralNetwork {
         // Add bias to outputs
         result = result.plus(bias);
         // Apply activation function and return result
-        return applyActivationFunction(result, false, activationFunction);
+        return applyActivationFunction(result, false);
     }
 
     private SimpleMatrix calculateGradient(SimpleMatrix layer, SimpleMatrix error){
-        SimpleMatrix gradient = applyActivationFunction(layer, true, activationFunction);
+        SimpleMatrix gradient = applyActivationFunction(layer, true);
         gradient = gradient.elementMult(error);
         return gradient.scale(learningRate);
     }
@@ -225,8 +244,10 @@ public class NeuralNetwork {
     // Applies an activation function to a matrix
     // An object of an implementation of the ActivationFunction-interface has to be passed
     // The function in this class will be applied
-    public SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative, ActivationFunction activationFunction){
+    private SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative){
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
+        ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
+
         for (int i = 0; i < input.numRows(); i++) {
             for (int j = 0; j < input.numCols(); j++) {
                 double value = input.get(i, j);
@@ -242,12 +263,16 @@ public class NeuralNetwork {
         return output;
     }
 
-    private void setActivationFunction(ActivationFunction activationFunction) {
-        this.activationFunction = activationFunction;
+    public void setActivationFunction(String activationFunction) {
+        this.activationFunctionKey = activationFunction;
     }
 
-    private String getActivationFunctionName(){
-        return activationFunction.getName();
+    public String getActivationFunctionName(){
+        return activationFunctionKey;
+    }
+
+    public void addActivationFunction(String key, ActivationFunction activationFunction){
+        activationFunctionMap.put(key, activationFunction);
     }
 
     public double getLearningRate() {

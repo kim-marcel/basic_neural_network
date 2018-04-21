@@ -6,6 +6,9 @@ package activationfunctions;
 // This interface and it's methods have to be implemented in all ActivationFunction-classes
 public interface ActivationFunction {
 
+    String SIGMOID = "SIGMOID";
+    String TANH = "TANH";
+
     // Activation function
     double function(double input);
 
