@@ -1,5 +1,7 @@
 package activationfunctions;
 
+import org.ejml.simple.SimpleMatrix;
+
 /**
  * Created by KimFeichtinger on 20.04.18.
  */
@@ -10,10 +12,10 @@ public interface ActivationFunction {
     String TANH = "TANH";
 
     // Activation function
-    double function(double input);
+    SimpleMatrix function(SimpleMatrix input);
 
     // Derivative of activation function (not real derivative because Activation function has already been applied to the input)
-    double dfunction(double input);
+    SimpleMatrix dfunction(SimpleMatrix input);
 
     String getName();
 
