@@ -1,4 +1,5 @@
 import activationfunctions.ActivationFunction;
+import activationfunctions.ReLuActivationFunction;
 import activationfunctions.SigmoidActivationFunction;
 import activationfunctions.TanhActivationFunction;
 import org.ejml.simple.SimpleMatrix;
@@ -73,6 +74,9 @@ public class NeuralNetwork {
 
         ActivationFunction tanh = new TanhActivationFunction();
         activationFunctionMap.put(tanh.getName(), tanh);
+
+        ActivationFunction relu = new ReLuActivationFunction();
+        activationFunctionMap.put(relu.getName(), relu);
     }
 
     private void initializeWeights() {

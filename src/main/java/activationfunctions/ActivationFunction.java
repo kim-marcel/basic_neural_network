@@ -10,6 +10,7 @@ public interface ActivationFunction {
 
     String SIGMOID = "SIGMOID";
     String TANH = "TANH";
+    String RELU = "RELU";
 
     // Activation function
     SimpleMatrix function(SimpleMatrix input);
