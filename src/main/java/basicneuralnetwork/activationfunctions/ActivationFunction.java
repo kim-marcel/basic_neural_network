@@ -1,4 +1,4 @@
-package activationfunctions;
+package com.kimmarcel.basicneuralnetwork.activationfunctions;
 
 import org.ejml.simple.SimpleMatrix;
 
@@ -13,10 +13,10 @@ public interface ActivationFunction {
     String RELU = "RELU";
 
     // Activation function
-    SimpleMatrix function(SimpleMatrix input);
+    SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input);
 
     // Derivative of activation function (not real derivative because Activation function has already been applied to the input)
-    SimpleMatrix dfunction(SimpleMatrix input);
+    SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input);
 
     String getName();
 

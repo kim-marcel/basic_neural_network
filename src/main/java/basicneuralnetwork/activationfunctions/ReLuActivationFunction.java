@@ -1,44 +1,43 @@
-package activationfunctions;
+package com.kimmarcel.basicneuralnetwork.activationfunctions;
 
 import org.ejml.simple.SimpleMatrix;
 
 /**
- * Created by KimFeichtinger on 20.04.18.
+ * Created by KimFeichtinger on 26.04.18.
  */
-public class TanhActivationFunction implements ActivationFunction {
+public class ReLuActivationFunction implements ActivationFunction {
 
-    private static final String NAME = "TANH";
+    private static final String NAME = "RELU";
 
-    public SimpleMatrix function(SimpleMatrix input) {
+    public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
 
         for (int i = 0; i < input.numRows(); i++) {
             // Column is always 0 because input has only one column
             double value = input.get(i, 0);
-            double result = Math.tanh(value);
+            double result = value > 0 ? value : 0;
 
             output.set(i, 0, result);
         }
 
         // Formula:
-        // 2 * (1 / (1 + Math.exp(2 * -input))) - 1;
-        // Math.tanh(input);
+        // for input < 0: 0, else input
         return output;
     }
 
-    public SimpleMatrix dfunction(SimpleMatrix input) {
+    public SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
 
         for (int i = 0; i < input.numRows(); i++) {
             // Column is always 0 because input has only one column
             double value = input.get(i, 0);
-            double result = 1 - (value * value);
+            double result = value > 0 ? 1 : 0;
 
             output.set(i, 0, result);
         }
 
         // Formula:
-        // 1 - (input * input);
+        // for input > 0: 1, else 0
         return output;
     }
 

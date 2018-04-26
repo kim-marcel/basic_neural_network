@@ -1,12 +1,14 @@
-import activationfunctions.ActivationFunction;
-import activationfunctions.ReLuActivationFunction;
-import activationfunctions.SigmoidActivationFunction;
-import activationfunctions.TanhActivationFunction;
+package com.kimmarcel.basicneuralnetwork;
+
+import com.kimmarcel.basicneuralnetwork.activationfunctions.ActivationFunction;
+import com.kimmarcel.basicneuralnetwork.activationfunctions.ReLuActivationFunction;
+import com.kimmarcel.basicneuralnetwork.activationfunctions.SigmoidActivationFunction;
+import com.kimmarcel.basicneuralnetwork.activationfunctions.TanhActivationFunction;
+import com.kimmarcel.basicneuralnetwork.utilities.MatrixConverter;
 import org.ejml.simple.SimpleMatrix;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import utilities.MatrixConverter;
 
 import java.io.*;
 import java.util.HashMap;
@@ -261,9 +263,9 @@ public class NeuralNetwork {
         SimpleMatrix output;
 
         if (derivative){
-            output = activationFunction.dfunction(input);
+            output = activationFunction.applyDerivativeOfActivationFunctionToMatrix(input);
         } else {
-            output = activationFunction.function(input);
+            output = activationFunction.applyActivationFunctionToMatrix(input);
         }
 
         return output;
