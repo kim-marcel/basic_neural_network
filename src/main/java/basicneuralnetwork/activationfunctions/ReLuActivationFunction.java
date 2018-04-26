@@ -1,4 +1,4 @@
-package com.kimmarcel.basicneuralnetwork.activationfunctions;
+package basicneuralnetwork.activationfunctions;
 
 import org.ejml.simple.SimpleMatrix;
 

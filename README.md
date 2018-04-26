@@ -12,6 +12,7 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 
 - Neural Network with variable amounts of inputs, hidden nodes and outputs
 - Multiple hidden layers
+- Activation functions: Sigmoid, Tanh, ReLu
 - Adjustable learning rate
 - Fully connected
 - Save the weights and biases of a NN to a JSON-file
@@ -54,11 +55,20 @@ nn.setLearningRate(0.01);
 // Get current learning rate
 nn.getLearningRate();
 ```
+
+Using different activation functions:
+```java
+// Set the activation function (By default Sigmoid will be used)
+nn.setLearningRate(ActivationFunction.TANH);
+
+// Get name of currently used activation function
+nn.getActivationFunctionName();
+```
 More detailed examples can be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.2.1](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.2.1/basic_neural_network-v0.2.1.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.3](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.3/basic_neural_network-v0.3.jar) here or check the release tab of this repository.
 
 ## Examples
 
@@ -69,7 +79,7 @@ If you want you can add your own projects, that were build with this library, to
 
 ## TODO
 
-- different activation functions (e.g. softmax)
+- implement softmax
 - support for genetic algorithms (mutate-functionality)
 - JUnit-tests
 - Javadoc documentation
