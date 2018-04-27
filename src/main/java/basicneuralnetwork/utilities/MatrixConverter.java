@@ -1,4 +1,4 @@
-package utilities;
+package basicneuralnetwork.utilities;
 
 import org.ejml.simple.SimpleMatrix;
 import org.json.simple.JSONObject;
