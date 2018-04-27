@@ -20,20 +20,20 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 
 ## Getting Started
 
+This section describes how a working copy of this project can be set up on your local machine for testing and development purposes. If you just want to use the library you can skip this part.
+
 ### Prerequisites
 [Maven](https://maven.apache.org) has to be installed:
 - [Download Maven](https://maven.apache.org/download.cgi)
 - [Installation guide](https://maven.apache.org/install.html)
 
 ### Installing
-Installing dependencies:
 ```
 mvn install
 ```
 All the dependencies specified in pom.xml will be installed.
 
 ### Building
-Building and packaging the project into a jar:
 ```
 mvn package
 ```
