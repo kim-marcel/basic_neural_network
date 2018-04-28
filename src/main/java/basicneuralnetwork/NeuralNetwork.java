@@ -108,56 +108,64 @@ public class NeuralNetwork {
 
     // Guess method, input is a one column matrix with the input values
     public double[] guess(double[] input) {
-        // Get ActivationFunction-object from the map by key
-        ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
+        if (input.length != inputNodes){
+            throw new WrongDimensionException(input.length, inputNodes, "Input");
+        } else {
+            // Get ActivationFunction-object from the map by key
+            ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
 
+            // Transform array to matrix
+            SimpleMatrix output = MatrixConverter.arrayToMatrix(input);
 
-        // Transform array to matrix
-        SimpleMatrix output = MatrixConverter.arrayToMatrix(input);
+            for (int i = 0; i < hiddenLayers + 1; i++) {
+                output = calculateLayer(weights[i], biases[i], output, activationFunction);
+            }
 
-        for (int i = 0; i < hiddenLayers + 1; i++) {
-            output = calculateLayer(weights[i], biases[i], output, activationFunction);
+            return MatrixConverter.matrixToArray(output);
         }
-
-        return MatrixConverter.matrixToArray(output);
     }
 
-    public void train(double[] i, double[] t) {
-        // Get ActivationFunction-object from the map by key
-        ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
+    public void train(double[] inputArray, double[] targetArray) {
+        if (inputArray.length != inputNodes) {
+            throw new WrongDimensionException(inputArray.length, inputNodes, "Input");
+        } else if (targetArray.length != outputNodes) {
+            throw new WrongDimensionException(targetArray.length, outputNodes, "Output");
+        } else {
+            // Get ActivationFunction-object from the map by key
+            ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
 
+            // Transform 2D array to matrix
+            SimpleMatrix input = MatrixConverter.arrayToMatrix(inputArray);
+            SimpleMatrix target = MatrixConverter.arrayToMatrix(targetArray);
 
-        // Transform 2D array to matrix
-        SimpleMatrix inputs = MatrixConverter.arrayToMatrix(i);
-        SimpleMatrix targets = MatrixConverter.arrayToMatrix(t);
+            // Calculate the values of every single layer
+            SimpleMatrix layers[] = new SimpleMatrix[hiddenLayers + 2];
+            layers[0] = input;
+            for (int j = 1; j < hiddenLayers + 2; j++) {
+                layers[j] = calculateLayer(weights[j - 1], biases[j - 1], input, activationFunction);
+                input = layers[j];
+            }
 
-        // Calculate the values of every single layer
-        SimpleMatrix layers[] = new SimpleMatrix[hiddenLayers + 2];
-        layers[0] = inputs;
-        for (int j = 1; j < hiddenLayers + 2; j++) {
-            layers[j] = calculateLayer(weights[j - 1], biases[j - 1], inputs, activationFunction);
-            inputs = layers[j];
-        }
+            for (int n = hiddenLayers + 1; n > 0; n--) {
+                // Calculate error
+                SimpleMatrix errors = target.minus(layers[n]);
 
-        for (int n = hiddenLayers + 1; n > 0; n--) {
-            // Calculate error
-            SimpleMatrix errors = targets.minus(layers[n]);
+                // Calculate gradient
+                SimpleMatrix gradients = calculateGradient(layers[n], errors, activationFunction);
 
-            // Calculate gradient
-            SimpleMatrix gradients = calculateGradient(layers[n], errors, activationFunction);
+                // Calculate delta
+                SimpleMatrix deltas = calculateDeltas(gradients, layers[n - 1]);
 
-            // Calculate delta
-            SimpleMatrix deltas = calculateDeltas(gradients, layers[n - 1]);
+                // Apply gradient to bias
+                biases[n - 1] = biases[n - 1].plus(gradients);
 
-            // Apply gradient to bias
-            biases[n - 1] = biases[n - 1].plus(gradients);
+                // Apply delta to weights
+                weights[n - 1] = weights[n - 1].plus(deltas);
 
-            // Apply delta to weights
-            weights[n - 1] = weights[n - 1].plus(deltas);
-
-            // Calculate and set target for previous (next) layer
-            SimpleMatrix previousError = weights[n - 1].transpose().mult(errors);
-            targets = previousError.plus(layers[n - 1]);
+                // Calculate and set target for previous (next) layer
+                SimpleMatrix previousError = weights[n - 1].transpose().mult(errors);
+                target = previousError.plus(layers[n - 1]);
+            }
         }
     }
 

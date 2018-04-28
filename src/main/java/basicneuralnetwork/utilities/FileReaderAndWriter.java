@@ -20,11 +20,11 @@ public class FileReaderAndWriter {
         JSONObject nnData = new JSONObject();
 
         for (int i = 0; i < weights.length; i++) {
-            nnData.put("weights" + i, MatrixConverter.matrixToJSON(weights[i]));
+            nnData.put("weights" + i, MatrixConverter.matrixToJson(weights[i]));
         }
 
         for (int i = 0; i < biases.length; i++) {
-            nnData.put("bias" + i, MatrixConverter.matrixToJSON(biases[i]));
+            nnData.put("bias" + i, MatrixConverter.matrixToJson(biases[i]));
         }
 
         try (FileWriter file = new FileWriter("nn_data.json")) {

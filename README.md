@@ -68,7 +68,7 @@ More detailed examples can be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.3](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.3/basic_neural_network-v0.3.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.3.1](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.3.1/basic_neural_network-v0.3.1.jar) here or check the release tab of this repository.
 
 ## Examples
 
