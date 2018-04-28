@@ -18,6 +18,27 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 - Save the weights and biases of a NN to a JSON-file
 - Generate a NeuralNetwork-object from a JSON-file
 
+## Getting Started
+
+This section describes how a working copy of this project can be set up on your local machine for testing and development purposes. If you just want to use the library you can skip this part.
+
+### Prerequisites
+[Maven](https://maven.apache.org) has to be installed:
+- [Download Maven](https://maven.apache.org/download.cgi)
+- [Installation guide](https://maven.apache.org/install.html)
+
+### Installing
+```
+mvn install
+```
+All the dependencies specified in pom.xml will be installed.
+
+### Building
+```
+mvn package
+```
+In ```/target/archive-tmp``` two jar-files will be generated. One with all the dependencies included and one without.
+
 ## Use the library
 
 Constructors:
