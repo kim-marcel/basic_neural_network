@@ -37,7 +37,7 @@ All the dependencies specified in pom.xml will be installed.
 ```
 mvn package
 ```
-In ```/target/archive-tmp``` two jar-files will be generated. One with all the dependencies included and one without.
+In the directory ```/target``` of the project two jar-files will be generated. One with all the dependencies included and one without.
 
 ## Use the library
 
