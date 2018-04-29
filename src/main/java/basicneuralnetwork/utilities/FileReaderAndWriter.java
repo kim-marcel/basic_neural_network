@@ -16,16 +16,15 @@ import java.io.IOException;
  */
 public class FileReaderAndWriter {
 
-    public static void writeToFile(SimpleMatrix[] weights, SimpleMatrix[] biases){
+    public static void writeToFile(NeuralNetwork nn){
         JSONObject nnData = new JSONObject();
 
-        for (int i = 0; i < weights.length; i++) {
-            nnData.put("weights" + i, MatrixConverter.matrixToJson(weights[i]));
-        }
+        nnData.put("dimensions", getDimensionsFromNN(nn));
+        nnData.put("weights", getWeightsFromNN(nn));
+        nnData.put("biases", getBiasesFromNN(nn));
 
-        for (int i = 0; i < biases.length; i++) {
-            nnData.put("bias" + i, MatrixConverter.matrixToJson(biases[i]));
-        }
+        nnData.put("learningRate", nn.getLearningRate());
+        nnData.put("activationFunction", nn.getActivationFunctionName());
 
         try (FileWriter file = new FileWriter("nn_data.json")) {
 
@@ -43,36 +42,29 @@ public class FileReaderAndWriter {
         NeuralNetwork nn = null;
 
         try {
+            // Read file and parse it into a JSONObject
             JSONObject nnData = (JSONObject) parser.parse(new FileReader("nn_data.json"));
 
-            int inputNodes;
-            int hiddenLayers = (nnData.size() / 2) - 1;
-            int hiddenNodes;
-            int outputNodes;
+            // Get the dimensions of the nn from the nnData
+            JSONObject dimensions = getDimensionsFromJSON(nnData);
 
-            SimpleMatrix weights[] = new SimpleMatrix[hiddenLayers + 1];
-            SimpleMatrix biases[] = new SimpleMatrix[hiddenLayers + 1];
-
-            for (int i = 0; i < weights.length; i++) {
-                JSONObject weightsJSON = (JSONObject) nnData.get("weights" + i);
-                weights[i] = MatrixConverter.jsonToMatrix(weightsJSON);
-            }
-
-            for (int i = 0; i < biases.length; i++) {
-                JSONObject biasesJSON = (JSONObject) nnData.get("bias" + i);
-                biases[i] = MatrixConverter.jsonToMatrix(biasesJSON);
-            }
-
-            // Get dimensions of the neural network from the file
-            inputNodes = weights[0].numCols();
-            hiddenNodes = biases[biases.length - 2].numRows();
-            outputNodes = biases[biases.length - 1].numRows();
+            // Write the dimensions into the variables
+            int inputNodes = Integer.parseInt(dimensions.get("inputNodes").toString());
+            int hiddenLayers = Integer.parseInt(dimensions.get("hiddenLayers").toString());
+            int hiddenNodes = Integer.parseInt(dimensions.get("hiddenNodes").toString());
+            int outputNodes = Integer.parseInt(dimensions.get("outputNodes").toString());
 
             // Make new NN with dimensions of the one from the file and fill its weights and biases
             nn = new NeuralNetwork(inputNodes, hiddenLayers, hiddenNodes, outputNodes);
 
+            SimpleMatrix weights[] = getWeightsFromJSON((JSONObject) nnData.get("weights"), hiddenLayers);
+            SimpleMatrix biases[] = getBiasesFromJSON((JSONObject) nnData.get("biases"), hiddenLayers);
+
             nn.setWeights(weights);
             nn.setBiases(biases);
+
+            nn.setActivationFunction(nnData.get("activationFunction").toString());
+            nn.setLearningRate((Double) nnData.get("learningRate"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -83,5 +75,70 @@ public class FileReaderAndWriter {
         }
 
         return nn;
+    }
+
+    // *** Methods used to help to write to file ***
+    private static JSONObject getDimensionsFromNN(NeuralNetwork nn){
+        JSONObject dimensions = new JSONObject();
+
+        dimensions.put("inputNodes", nn.getInputNodes());
+        dimensions.put("hiddenLayers", nn.getHiddenLayers());
+        dimensions.put("hiddenNodes", nn.getHiddenNodes());
+        dimensions.put("outputNodes", nn.getOutputNodes());
+
+        return dimensions;
+    }
+
+    private static JSONObject getWeightsFromNN(NeuralNetwork nn){
+        JSONObject weights = new JSONObject();
+
+        SimpleMatrix[] weightsData = nn.getWeights();
+
+        for (int i = 0; i < weightsData.length; i++) {
+            weights.put("weights" + i, MatrixConverter.matrixToJson(weightsData[i]));
+        }
+
+        return weights;
+    }
+
+    private static JSONObject getBiasesFromNN(NeuralNetwork nn){
+        JSONObject biases = new JSONObject();
+
+        SimpleMatrix[] biasesData = nn.getBiases();
+
+        for (int i = 0; i < biasesData.length; i++) {
+            biases.put("biases" + i, MatrixConverter.matrixToJson(biasesData[i]));
+        }
+
+        return biases;
+    }
+
+    // *** Methods used to help to read from file ***
+    private static JSONObject getDimensionsFromJSON(JSONObject nnData){
+        return (JSONObject) nnData.get("dimensions");
+    }
+
+    private static SimpleMatrix[] getWeightsFromJSON(JSONObject nnData, int layers){
+        // Layers + 1 because the output layer is not included in the hiddenLayers
+        SimpleMatrix weights[] = new SimpleMatrix[layers + 1];
+
+        for (int i = 0; i < weights.length; i++) {
+            JSONObject weightsJSON = (JSONObject) nnData.get("weights" + i);
+            weights[i] = MatrixConverter.jsonToMatrix(weightsJSON);
+        }
+
+        return weights;
+    }
+
+    private static SimpleMatrix[] getBiasesFromJSON(JSONObject nnData, int layers){
+        // Layers + 1 because the output layer is not included in the hiddenLayers
+        SimpleMatrix biases[] = new SimpleMatrix[layers + 1];
+
+        for (int i = 0; i < biases.length; i++) {
+            JSONObject biasesJSON = (JSONObject) nnData.get("biases" + i);
+            biases[i] = MatrixConverter.jsonToMatrix(biasesJSON);
+        }
+
+        return biases;
     }
 }

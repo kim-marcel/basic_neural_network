@@ -190,7 +190,7 @@ public class NeuralNetwork {
     }
 
     public void writeToFile() {
-        FileReaderAndWriter.writeToFile(weights, biases);
+        FileReaderAndWriter.writeToFile(this);
     }
 
     public static NeuralNetwork readFromFile() {
@@ -230,6 +230,30 @@ public class NeuralNetwork {
 
     public void setLearningRate(double learningRate) {
         this.learningRate = learningRate;
+    }
+
+    public int getInputNodes() {
+        return inputNodes;
+    }
+
+    public int getHiddenLayers() {
+        return hiddenLayers;
+    }
+
+    public int getHiddenNodes() {
+        return hiddenNodes;
+    }
+
+    public int getOutputNodes() {
+        return outputNodes;
+    }
+
+    public SimpleMatrix[] getWeights() {
+        return weights;
+    }
+
+    public SimpleMatrix[] getBiases() {
+        return biases;
     }
 
     public void setWeights(SimpleMatrix[] weights) {
