@@ -21,10 +21,6 @@ public class NeuralNetwork {
 
     private Random random = new Random();
 
-    private String activationFunctionKey;
-
-    private double learningRate;
-
     // Dimensions of the neural network
     private int inputNodes;
     private int hiddenLayers;
@@ -34,22 +30,19 @@ public class NeuralNetwork {
     private SimpleMatrix[] weights;
     private SimpleMatrix[] biases;
 
+    private double learningRate;
+
+    private String activationFunctionKey;
+
     // Constructor
     // Generate a new neural network with 1 hidden layer with the given amount of nodes in the individual layers
-    // Every hidden layer will have the same amount of nodes
     public NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes) {
-        this.inputNodes = inputNodes;
-        this.hiddenLayers = 1;
-        this.hiddenNodes = hiddenNodes;
-        this.outputNodes = outputNodes;
-
-        initializeDefaultValues();
-        initializeWeights();
-        initializeBiases();
+        this(inputNodes, 1, hiddenNodes, outputNodes);
     }
 
     // Constructor
     // Generate a new neural network with a given amount of hidden layers with the given amount of nodes in the individual layers
+    // Every hidden layer will have the same amount of nodes
     public NeuralNetwork(int inputNodes, int hiddenLayers, int hiddenNodes, int outputNodes) {
         this.inputNodes = inputNodes;
         this.hiddenLayers = hiddenLayers;
@@ -189,6 +182,15 @@ public class NeuralNetwork {
         return gradient.mult(layer.transpose());
     }
 
+    // Applies an activation function to a matrix
+    // An object of an implementation of the ActivationFunction-interface has to be passed
+    // The function in this class will be  to the matrix
+    private SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative, ActivationFunction activationFunction) {
+        // Applies either derivative of activation function or regular activation function to a matrix and returns the result
+        return derivative ? activationFunction.applyDerivativeOfActivationFunctionToMatrix(input)
+                          : activationFunction.applyActivationFunctionToMatrix(input);
+    }
+
     public void writeToFile() {
         FileReaderAndWriter.writeToFile(this);
     }
@@ -197,31 +199,16 @@ public class NeuralNetwork {
         return FileReaderAndWriter.readFromFile();
     }
 
-    // Applies an activation function to a matrix
-    // An object of an implementation of the ActivationFunction-interface has to be passed
-    // The function in this class will be  to the matrix
-    private SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative, ActivationFunction activationFunction) {
-        SimpleMatrix output;
-
-        if (derivative){
-            output = activationFunction.applyDerivativeOfActivationFunctionToMatrix(input);
-        } else {
-            output = activationFunction.applyActivationFunctionToMatrix(input);
-        }
-
-        return output;
-    }
-
-    public void setActivationFunction(String activationFunction) {
-        this.activationFunctionKey = activationFunction;
-    }
-
     public String getActivationFunctionName() {
         return activationFunctionKey;
     }
 
     public void addActivationFunction(String key, ActivationFunction activationFunction) {
         activationFunctionMap.put(key, activationFunction);
+    }
+
+    public void setActivationFunction(String activationFunction) {
+        this.activationFunctionKey = activationFunction;
     }
 
     public double getLearningRate() {
@@ -252,12 +239,12 @@ public class NeuralNetwork {
         return weights;
     }
 
-    public SimpleMatrix[] getBiases() {
-        return biases;
-    }
-
     public void setWeights(SimpleMatrix[] weights) {
         this.weights = weights;
+    }
+
+    public SimpleMatrix[] getBiases() {
+        return biases;
     }
 
     public void setBiases(SimpleMatrix[] biases) {

@@ -63,8 +63,8 @@ public class FileReaderAndWriter {
             nn.setWeights(weights);
             nn.setBiases(biases);
 
-            nn.setActivationFunction(nnData.get("activationFunction").toString());
             nn.setLearningRate((Double) nnData.get("learningRate"));
+            nn.setActivationFunction(nnData.get("activationFunction").toString());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
