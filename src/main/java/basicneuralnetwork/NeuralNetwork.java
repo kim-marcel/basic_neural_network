@@ -114,7 +114,7 @@ public class NeuralNetwork {
                 output = calculateLayer(weights[i], biases[i], output, activationFunction);
             }
 
-            return MatrixConverter.matrixToArray(output);
+            return MatrixConverter.getColumnFromMatrixAsArray(output, 0);
         }
     }
 
