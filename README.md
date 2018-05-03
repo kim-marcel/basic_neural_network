@@ -111,5 +111,5 @@ If you have any other suggestions on what should be done, feel free to open an i
 ## Libraries & Tools used in this project
 
 - [EJML](https://www.ejml.org) used for Matrix math
-- [JSON.simple](https://code.google.com/archive/p/json-simple/) library
+- [Google Gson](https://github.com/google/gson) library
 - [Maven](https://maven.apache.org) build- and dependency-management
