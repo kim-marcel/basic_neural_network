@@ -10,8 +10,8 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
-// This class is needed to make the interfaces/ abstract classes in this project serializable
-// so that they can be converted to JSON or from JSON
+// This class is needed to make the interfaces/ abstract classes used in this project serializable/ deserializable
+// so that they can be converted to JSON or from JSON by Google Gson-library
 // The solution was found here:
 // https://stackoverflow.com/questions/4795349/how-to-serialize-a-class-with-an-interface/9550086#9550086
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
