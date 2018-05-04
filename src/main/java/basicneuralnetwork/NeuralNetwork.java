@@ -1,15 +1,10 @@
 package basicneuralnetwork;
 
-import basicneuralnetwork.activationfunctions.ReLuActivationFunction;
-import basicneuralnetwork.activationfunctions.SigmoidActivationFunction;
-import basicneuralnetwork.activationfunctions.TanhActivationFunction;
-import basicneuralnetwork.activationfunctions.ActivationFunction;
+import basicneuralnetwork.activationfunctions.*;
 import basicneuralnetwork.utilities.FileReaderAndWriter;
 import basicneuralnetwork.utilities.MatrixConverter;
 import org.ejml.simple.SimpleMatrix;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -17,7 +12,7 @@ import java.util.Random;
  */
 public class NeuralNetwork {
 
-    private Map<String, ActivationFunction> activationFunctionMap = new HashMap<String, ActivationFunction>();
+    private ActivationFunctionFactory activationFunctionFactory= new ActivationFunctionFactory();
 
     private Random random = new Random();
 
@@ -55,20 +50,10 @@ public class NeuralNetwork {
     }
 
     private void initializeDefaultValues() {
-        learningRate = 0.1;
+        this.setLearningRate(0.1);
 
         // Sigmoid is the default ActivationFunction
-        activationFunctionKey = ActivationFunction.SIGMOID;
-
-        // Fill map with all the activation functions
-        ActivationFunction sigmoid = new SigmoidActivationFunction();
-        activationFunctionMap.put(sigmoid.getName(), sigmoid);
-
-        ActivationFunction tanh = new TanhActivationFunction();
-        activationFunctionMap.put(tanh.getName(), tanh);
-
-        ActivationFunction relu = new ReLuActivationFunction();
-        activationFunctionMap.put(relu.getName(), relu);
+        this.setActivationFunction(ActivationFunction.SIGMOID);
     }
 
     private void initializeWeights() {
@@ -105,7 +90,7 @@ public class NeuralNetwork {
             throw new WrongDimensionException(input.length, inputNodes, "Input");
         } else {
             // Get ActivationFunction-object from the map by key
-            ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
+            ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(activationFunctionKey);
 
             // Transform array to matrix
             SimpleMatrix output = MatrixConverter.arrayToMatrix(input);
@@ -125,7 +110,7 @@ public class NeuralNetwork {
             throw new WrongDimensionException(targetArray.length, outputNodes, "Output");
         } else {
             // Get ActivationFunction-object from the map by key
-            ActivationFunction activationFunction = activationFunctionMap.get(activationFunctionKey);
+            ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(activationFunctionKey);
 
             // Transform 2D array to matrix
             SimpleMatrix input = MatrixConverter.arrayToMatrix(inputArray);
@@ -203,12 +188,12 @@ public class NeuralNetwork {
         return activationFunctionKey;
     }
 
-    public void addActivationFunction(String key, ActivationFunction activationFunction) {
-        activationFunctionMap.put(key, activationFunction);
-    }
-
     public void setActivationFunction(String activationFunction) {
         this.activationFunctionKey = activationFunction;
+    }
+
+    public void addActivationFunction(String key, ActivationFunction activationFunction){
+        activationFunctionFactory.addActivationFunction(key, activationFunction);
     }
 
     public double getLearningRate() {
