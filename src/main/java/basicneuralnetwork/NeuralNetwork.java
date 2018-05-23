@@ -2,9 +2,10 @@ package basicneuralnetwork;
 
 import basicneuralnetwork.activationfunctions.*;
 import basicneuralnetwork.utilities.FileReaderAndWriter;
-import basicneuralnetwork.utilities.MatrixConverter;
+import basicneuralnetwork.utilities.MatrixUtilities;
 import org.ejml.simple.SimpleMatrix;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Random;
  */
 public class NeuralNetwork {
 
-    private ActivationFunctionFactory activationFunctionFactory= new ActivationFunctionFactory();
+    private ActivationFunctionFactory activationFunctionFactory = new ActivationFunctionFactory();
 
     private Random random = new Random();
 
@@ -47,6 +48,29 @@ public class NeuralNetwork {
         initializeDefaultValues();
         initializeWeights();
         initializeBiases();
+    }
+
+    // Copy constructor
+    public NeuralNetwork(NeuralNetwork nn) {
+        this.inputNodes = nn.inputNodes;
+        this.hiddenLayers = nn.hiddenLayers;
+        this.hiddenNodes = nn.hiddenNodes;
+        this.outputNodes = nn.outputNodes;
+
+        this.weights = new SimpleMatrix[hiddenLayers + 1];
+        this.biases = new SimpleMatrix[hiddenLayers + 1];
+
+        for (int i = 0; i < nn.weights.length; i++) {
+            this.weights[i] = nn.weights[i].copy();
+        }
+
+        for (int i = 0; i < nn.biases.length; i++) {
+            this.biases[i] = nn.biases[i].copy();
+        }
+
+        this.learningRate = nn.learningRate;
+
+        this.activationFunctionKey = nn.activationFunctionKey;
     }
 
     private void initializeDefaultValues() {
@@ -93,13 +117,13 @@ public class NeuralNetwork {
             ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(activationFunctionKey);
 
             // Transform array to matrix
-            SimpleMatrix output = MatrixConverter.arrayToMatrix(input);
+            SimpleMatrix output = MatrixUtilities.arrayToMatrix(input);
 
             for (int i = 0; i < hiddenLayers + 1; i++) {
                 output = calculateLayer(weights[i], biases[i], output, activationFunction);
             }
 
-            return MatrixConverter.getColumnFromMatrixAsArray(output, 0);
+            return MatrixUtilities.getColumnFromMatrixAsArray(output, 0);
         }
     }
 
@@ -113,8 +137,8 @@ public class NeuralNetwork {
             ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(activationFunctionKey);
 
             // Transform 2D array to matrix
-            SimpleMatrix input = MatrixConverter.arrayToMatrix(inputArray);
-            SimpleMatrix target = MatrixConverter.arrayToMatrix(targetArray);
+            SimpleMatrix input = MatrixUtilities.arrayToMatrix(inputArray);
+            SimpleMatrix target = MatrixUtilities.arrayToMatrix(targetArray);
 
             // Calculate the values of every single layer
             SimpleMatrix layers[] = new SimpleMatrix[hiddenLayers + 2];
@@ -143,6 +167,60 @@ public class NeuralNetwork {
                 // Calculate and set target for previous (next) layer
                 SimpleMatrix previousError = weights[n - 1].transpose().mult(errors);
                 target = previousError.plus(layers[n - 1]);
+            }
+        }
+    }
+
+    // Generates an exact copy of a NeuralNetwork
+    public NeuralNetwork copy(){
+        return new NeuralNetwork(this);
+    }
+
+    // Merges the weights and biases of two NeuralNetworks and returns a new object
+    // Merge-ratio: 50:50 (half of the values will be from nn1 and other half from nn2)
+    public NeuralNetwork merge(NeuralNetwork nn){
+        return this.merge(nn, 0.5);
+    }
+
+    // Merges the weights and biases of two NeuralNetworks and returns a new object
+    // Everything besides the weights and biases will be the same
+    // of the object on which this method is called (Learning Rate, activation function, etc.)
+    // Merge-ratio: defined by probability
+    public NeuralNetwork merge(NeuralNetwork nn, double probability){
+        // Check whether the nns have the same dimensions
+        if(!Arrays.equals(this.getDimensions(), nn.getDimensions())){
+            throw new WrongDimensionException(this.getDimensions(), nn.getDimensions());
+        }else{
+            NeuralNetwork result = this.copy();
+
+            for (int i = 0; i < result.weights.length; i++) {
+                result.weights[i] = MatrixUtilities.mergeMatrices(this.weights[i], nn.weights[i], probability);
+            }
+
+            for (int i = 0; i < result.biases.length; i++) {
+                result.biases[i] = MatrixUtilities.mergeMatrices(this.biases[i], nn.biases[i], probability);
+            }
+            return result;
+        }
+    }
+
+    // Gaussian mutation with given probability, Slightly modifies values (weights + biases) with given probability
+    // Probability: number between 0 and 1
+    // Depending on probability more/ less values will be mutated (e.g. prob = 1.0: all the values will be mutated)
+    public void mutate(double probability) {
+        applyMutation(weights, probability);
+        applyMutation(biases, probability);
+    }
+
+    // Adds a randomly generated gaussian number to each element of a Matrix in an array of matrices
+    // Probability: determines how many values will be modified
+    private void applyMutation(SimpleMatrix[] matrices, double probability) {
+        for (SimpleMatrix matrix : matrices) {
+            for (int j = 0; j < matrix.getNumElements(); j++) {
+                if (random.nextDouble() < probability) {
+                    double offset = random.nextGaussian() / 2;
+                    matrix.set(j, matrix.get(j) + offset);
+                }
             }
         }
     }
@@ -234,6 +312,10 @@ public class NeuralNetwork {
 
     public void setBiases(SimpleMatrix[] biases) {
         this.biases = biases;
+    }
+
+    public int[] getDimensions(){
+        return new int[]{inputNodes, hiddenLayers, hiddenNodes, outputNodes};
     }
 
 }
