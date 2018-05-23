@@ -15,6 +15,7 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 - Activation functions: Sigmoid, Tanh, ReLu
 - Adjustable learning rate
 - Fully connected
+- Support for genetic algorithms: copy-, mutate-, and merge-functionality
 - Save the weights and biases of a NN to a JSON-file
 - Generate a NeuralNetwork-object from a JSON-file
 
@@ -85,11 +86,26 @@ nn.setLearningRate(ActivationFunction.TANH);
 // Get name of currently used activation function
 nn.getActivationFunctionName();
 ```
+
+Using this library with genetic algorithms:
+```java
+// Make an exact and "independent" copy of a Neural Network
+NeuralNetwork nn2 = nn1.copy();
+
+// Merge the weights and biases of two Neural Networks with a ratio of 50:50
+NeuralNetwork merged = nnA.merge(nnB);
+
+// Merge the weights and biases of two Neural Networks with a custom ratio (here: 20:80)
+NeuralNetwork merged = nnA.merge(nnB, 0.2);
+
+// Mutate the weights and biases of a Neural Network with custom probability
+nn.mutate(0.1);
+```
 More detailed examples can be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.3.1](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.3.1/basic_neural_network-v0.3.1.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.4](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.4/basic_neural_network-v0.4.jar) here or check the release tab of this repository.
 
 ## Examples
 
@@ -101,9 +117,10 @@ If you want you can add your own projects, that were build with this library, to
 ## TODO
 
 - implement softmax
-- support for genetic algorithms (mutate-functionality)
+- add more functionality for genetic algorithms (e.g. different merge functions,...)
 - JUnit-tests
 - Javadoc documentation
+- weights and biases should get normalized
 - more examples
 
 If you have any other suggestions on what should be done, feel free to open an issue or add it to this list.
