@@ -51,7 +51,7 @@ NeuralNetwork nn0 = new NeuralNetwork(2, 4, 1);
 NeuralNetwork nn1 = new NeuralNetwork(2, 2, 4, 1);
 ```
 
-Training and guessing:
+Train and guess:
 ```java
 // Train the neural network with a training dataset (inputs and expected outputs)
 nn.train(trainingDataInputs, trainingDataTargets);
@@ -69,7 +69,7 @@ NeuralNetwork myNN = NeuralNetwork.readFromFile();
 myNN.writeToFile();
 ```
 
-Adjusting the learning rate:
+Adjust the learning rate:
 ```java
 // Set the learning rate (Initially the learning rate is 0.1)
 nn.setLearningRate(0.01);
@@ -78,7 +78,7 @@ nn.setLearningRate(0.01);
 nn.getLearningRate();
 ```
 
-Using different activation functions:
+Use different activation functions:
 ```java
 // Set the activation function (By default Sigmoid will be used)
 nn.setLearningRate(ActivationFunction.TANH);
@@ -87,7 +87,7 @@ nn.setLearningRate(ActivationFunction.TANH);
 nn.getActivationFunctionName();
 ```
 
-Using this library with genetic algorithms:
+Use this library with genetic algorithms:
 ```java
 // Make an exact and "independent" copy of a Neural Network
 NeuralNetwork nn2 = nn1.copy();
