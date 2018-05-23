@@ -125,6 +125,8 @@ If you want you can add your own projects, that were build with this library, to
 
 If you have any other suggestions on what should be done, feel free to open an issue or add it to this list.
 
+If you want to contribute by implementing any of these features or your own ideas please do so and send me a pull request.
+
 ## Libraries & Tools used in this project
 
 - [EJML](https://www.ejml.org) used for Matrix math
