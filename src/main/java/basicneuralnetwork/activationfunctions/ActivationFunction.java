@@ -8,9 +8,9 @@ import org.ejml.simple.SimpleMatrix;
 // This interface and it's methods have to be implemented in all ActivationFunction-classes
 public interface ActivationFunction {
 
-    String SIGMOID = "SIGMOID";
-    String TANH = "TANH";
-    String RELU = "RELU";
+    String SIGMOID = SigmoidActivationFunction.NAME;
+    String TANH = TanhActivationFunction.NAME;
+    String RELU = ReLuActivationFunction.NAME;
 
     // Activation function
     SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input);
@@ -19,5 +19,4 @@ public interface ActivationFunction {
     SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input);
 
     String getName();
-
 }

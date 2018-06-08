@@ -6,8 +6,12 @@ import org.ejml.simple.SimpleMatrix;
  * Created by KimFeichtinger on 20.04.18.
  */
 public class TanhActivationFunction implements ActivationFunction {
-
-    private static final String NAME = "TANH";
+    
+    public static final String NAME = "tanh";
+    
+    static {
+        ActivationFunctionFactory.register(NAME, TanhActivationFunction::new);
+    }
 
     public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());

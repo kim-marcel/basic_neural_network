@@ -17,11 +17,12 @@ import java.io.IOException;
  */
 public class FileReaderAndWriter {
 
-    public static void writeToFile(NeuralNetwork nn){
+    private static final Gson GSON = getGsonBuilder().create();
+    
+    public static void writeToFile(NeuralNetwork nn) {
         try {
             FileWriter file = new FileWriter("nn_data.json");
-            Gson gson = getGsonBuilder().create();
-            String nnData = gson.toJson(nn);
+            String nnData = GSON.toJson(nn);
 
             file.write(nnData);
             file.flush();
@@ -34,9 +35,8 @@ public class FileReaderAndWriter {
         NeuralNetwork nn = null;
 
         try {
-            Gson gson = getGsonBuilder().create();
             JsonReader jsonReader = new JsonReader(new FileReader("nn_data.json"));
-            nn = gson.fromJson(jsonReader, NeuralNetwork.class);
+            nn = GSON.fromJson(jsonReader, NeuralNetwork.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class FileReaderAndWriter {
     }
 
     // Get a GsonBuilder-object with all the needed TypeAdapters added
-    private static GsonBuilder getGsonBuilder(){
+    private static GsonBuilder getGsonBuilder() {
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         gsonBuilder.registerTypeAdapter(ActivationFunction.class, new InterfaceAdapter<ActivationFunction>());

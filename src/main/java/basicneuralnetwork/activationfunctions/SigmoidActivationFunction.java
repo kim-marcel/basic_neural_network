@@ -7,7 +7,11 @@ import org.ejml.simple.SimpleMatrix;
  */
 public class SigmoidActivationFunction implements ActivationFunction {
 
-    private static final String NAME = "SIGMOID";
+    public static final String NAME = "sigmoid";
+    
+    static {
+        ActivationFunctionFactory.register(NAME, SigmoidActivationFunction::new);
+    }
 
     // Sigmoid
     public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {

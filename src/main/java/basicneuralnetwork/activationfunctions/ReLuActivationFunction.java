@@ -7,7 +7,11 @@ import org.ejml.simple.SimpleMatrix;
  */
 public class ReLuActivationFunction implements ActivationFunction {
 
-    private static final String NAME = "RELU";
+    public static final String NAME = "relu";
+    
+    static {
+        ActivationFunctionFactory.register(NAME, ReLuActivationFunction::new);
+    }
 
     public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
