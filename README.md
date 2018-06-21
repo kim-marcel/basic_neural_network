@@ -40,6 +40,12 @@ mvn package
 ```
 In the directory ```/target``` of the project two jar-files will be generated. One with all the dependencies included and one without.
 
+### Testing
+```
+mvn clean test
+```
+Runs all JUnit-Tests specified in this project.
+
 ## Use the library
 
 Constructors:
