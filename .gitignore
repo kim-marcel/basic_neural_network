@@ -3,6 +3,6 @@ target
 out
 artifacts
 nn_data.json
-src/main/java/basicneuralnetwork/Test.java
+src/main/java/basicneuralnetwork/Example.java
 src/main/java/basicneuralnetwork/activationfunctions/SoftmaxActivationFunction.java
 nn_data.json
