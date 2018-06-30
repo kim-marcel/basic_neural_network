@@ -270,16 +270,16 @@ public class NeuralNetwork {
         return FileReaderAndWriter.readFromFile(fileName);
     }
 
+    public void addActivationFunction(String key, ActivationFunction activationFunction){
+        activationFunctionFactory.addActivationFunction(key, activationFunction);
+    }
+
     public String getActivationFunctionName() {
         return activationFunctionKey;
     }
 
     public void setActivationFunction(String activationFunction) {
         this.activationFunctionKey = activationFunction;
-    }
-
-    public void addActivationFunction(String key, ActivationFunction activationFunction){
-        activationFunctionFactory.addActivationFunction(key, activationFunction);
     }
 
     public double getLearningRate() {
