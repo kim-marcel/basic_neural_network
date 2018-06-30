@@ -124,7 +124,7 @@ If you want you can add your own projects, that were build with this library, to
 
 - implement softmax
 - add more functionality for genetic algorithms (e.g. different merge functions,...)
-- JUnit-tests
+- Implement more Unit-Tests (increase test coverage)
 - Javadoc documentation
 - weights and biases should get normalized
 - more examples
