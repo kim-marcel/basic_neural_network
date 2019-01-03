@@ -2,7 +2,7 @@
 
 This is a very basic Java Neural Network library based on the one built by Daniel Shiffman in [this](https://www.youtube.com/watch?v=XJ7HLz9VYz0&list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh) playlist using the [Efficient Java Matrix Library](https://www.ejml.org) (EJML).
 
-The library can also be used with [Processing](https://processing.org). Just download the jar-file and drag it into your sketch.
+The library can also be used with [Processing](https://processing.org). Just download the jar-file (see below) and drag it into your sketch.
 
 If you want to learn more about Neural Networks check out these YouTube-playlists:
 - [Neural Networks - The Nature of Code](https://www.youtube.com/watch?v=XJ7HLz9VYz0&list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh) by The Coding Train (Daniel Shiffman)
