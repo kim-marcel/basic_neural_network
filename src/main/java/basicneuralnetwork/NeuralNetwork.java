@@ -13,8 +13,6 @@ import java.util.Random;
  */
 public class NeuralNetwork {
 
-    private ActivationFunctionFactory activationFunctionFactory = new ActivationFunctionFactory();
-
     private Random random = new Random();
 
     // Dimensions of the neural network
@@ -114,7 +112,7 @@ public class NeuralNetwork {
             throw new WrongDimensionException(input.length, inputNodes, "Input");
         } else {
             // Get ActivationFunction-object from the map by key
-            ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(activationFunctionKey);
+            ActivationFunction activationFunction = ActivationFunctionFactory.createByName(activationFunctionKey);
 
             // Transform array to matrix
             SimpleMatrix output = MatrixUtilities.arrayToMatrix(input);
@@ -134,7 +132,7 @@ public class NeuralNetwork {
             throw new WrongDimensionException(targetArray.length, outputNodes, "Output");
         } else {
             // Get ActivationFunction-object from the map by key
-            ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(activationFunctionKey);
+            ActivationFunction activationFunction = ActivationFunctionFactory.createByName(activationFunctionKey);
 
             // Transform 2D array to matrix
             SimpleMatrix input = MatrixUtilities.arrayToMatrix(inputArray);
@@ -268,10 +266,6 @@ public class NeuralNetwork {
 
     public void setActivationFunction(String activationFunction) {
         this.activationFunctionKey = activationFunction;
-    }
-
-    public void addActivationFunction(String key, ActivationFunction activationFunction){
-        activationFunctionFactory.addActivationFunction(key, activationFunction);
     }
 
     public double getLearningRate() {

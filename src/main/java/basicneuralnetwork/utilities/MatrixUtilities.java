@@ -10,13 +10,13 @@ import java.util.Random;
  */
 public class MatrixUtilities {
 
-    // Converts a 2D array into a SimpleMatrix
+    /** Converts a 2D array into a SimpleMatrix */
     public static SimpleMatrix arrayToMatrix(double[] i) {
         double[][] input = {i};
         return new SimpleMatrix(input).transpose();
     }
 
-    // Converts a SimpleMatrix into a 2D array
+    /** Converts a SimpleMatrix into a 2D array */
     public static double[][] matrixTo2DArray(SimpleMatrix i) {
         double[][] result = new double[i.numRows()][i.numCols()];
 
@@ -28,7 +28,7 @@ public class MatrixUtilities {
         return result;
     }
 
-    // Returns one specific column of a matrix as a 1D array
+    /** Returns one specific column of a matrix as a 1D array */
     public static double[] getColumnFromMatrixAsArray(SimpleMatrix data, int column) {
         double[] result = new double[data.numRows()];
 
@@ -39,7 +39,7 @@ public class MatrixUtilities {
         return result;
     }
 
-    // Merge two matrices and return a new one
+    /** Merge two matrices and return a new one */
     public static SimpleMatrix mergeMatrices(SimpleMatrix matrixA, SimpleMatrix matrixB, double probability) {
         if (matrixA.numCols() != matrixB.numCols() || matrixA.numRows() != matrixB.numRows()) {
             throw new WrongDimensionException();
