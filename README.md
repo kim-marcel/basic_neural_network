@@ -64,9 +64,13 @@ Read and write from/to file:
 ```java
 // Reads from a (previously generated) JSON-file the nn-Data and returns a NeuralNetwork-object
 NeuralNetwork myNN = NeuralNetwork.readFromFile();
+// Load from a specifiy file (by default it will look for a file called "nn_data.json")
+NeuralNetwork myNN = NeuralNetwork.readFromFile("my_nn_data.json");
 
 // Writes a JSON-file with the current "state" (weights and biases) of the NN
 myNN.writeToFile();
+// Specify a custom file name (by default it will be saved as "nn_data.json")
+myNN.writeToFile("my_nn_data");
 ```
 
 Adjust the learning rate:
@@ -105,7 +109,7 @@ More detailed examples can be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.4](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.4/basic_neural_network-v0.4.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.5](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.5/basic_neural_network-v0.5.jar) here or check the release tab of this repository for other versions.
 
 ## Examples
 

@@ -17,9 +17,15 @@ import java.io.IOException;
  */
 public class FileReaderAndWriter {
 
-    public static void writeToFile(NeuralNetwork nn){
+    public static void writeToFile(NeuralNetwork nn, String fileName){
+        String name = fileName;
+
+        if (fileName == null) {
+            name = "nn_data";
+        }
+
         try {
-            FileWriter file = new FileWriter("nn_data.json");
+            FileWriter file = new FileWriter(name + ".json");
             Gson gson = getGsonBuilder().create();
             String nnData = gson.toJson(nn);
 
@@ -30,12 +36,17 @@ public class FileReaderAndWriter {
         }
     }
 
-    public static NeuralNetwork readFromFile() {
+    public static NeuralNetwork readFromFile(String fileName) {
         NeuralNetwork nn = null;
+        String name = fileName;
+
+        if (fileName == null) {
+            name = "nn_data.json";
+        }
 
         try {
             Gson gson = getGsonBuilder().create();
-            JsonReader jsonReader = new JsonReader(new FileReader("nn_data.json"));
+            JsonReader jsonReader = new JsonReader(new FileReader(name));
             nn = gson.fromJson(jsonReader, NeuralNetwork.class);
         } catch (IOException e) {
             e.printStackTrace();
