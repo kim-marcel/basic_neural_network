@@ -255,11 +255,19 @@ public class NeuralNetwork {
     }
 
     public void writeToFile() {
-        FileReaderAndWriter.writeToFile(this);
+        FileReaderAndWriter.writeToFile(this, null);
+    }
+
+    public void writeToFile(String fileName) {
+        FileReaderAndWriter.writeToFile(this, fileName);
     }
 
     public static NeuralNetwork readFromFile() {
-        return FileReaderAndWriter.readFromFile();
+        return FileReaderAndWriter.readFromFile(null);
+    }
+
+    public static NeuralNetwork readFromFile(String fileName) {
+        return FileReaderAndWriter.readFromFile(fileName);
     }
 
     public String getActivationFunctionName() {
