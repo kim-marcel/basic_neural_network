@@ -6,7 +6,7 @@
 
     <groupId>com.kim-marcel.basic_neural_network</groupId>
     <artifactId>basic_neural_network</artifactId>
-    <version>v0.4</version>
+    <version>v0.5</version>
 
     <build>
         <plugins>
