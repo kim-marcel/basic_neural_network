@@ -109,7 +109,7 @@ More detailed examples can be found below.
 
 ## Download
 
-If you want to use this library you can download [v0.4](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.4/basic_neural_network-v0.4.jar) here or check the release tab of this repository.
+If you want to use this library you can download [v0.5](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.5/basic_neural_network-v0.5.jar) here or check the release tab of this repository for other versions.
 
 ## Examples
 
