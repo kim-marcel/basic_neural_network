@@ -85,7 +85,7 @@ nn.getLearningRate();
 Use different activation functions:
 ```java
 // Set the activation function (By default Sigmoid will be used)
-nn.setLearningRate(ActivationFunction.TANH);
+nn.setActivationFunction(ActivationFunction.TANH);
 
 // Get name of currently used activation function
 nn.getActivationFunctionName();
