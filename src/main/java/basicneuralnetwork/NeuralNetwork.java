@@ -5,6 +5,7 @@ import basicneuralnetwork.utilities.FileReaderAndWriter;
 import basicneuralnetwork.utilities.MatrixUtilities;
 import org.ejml.simple.SimpleMatrix;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import java.util.Random;
 public class NeuralNetwork {
 
     private ActivationFunctionFactory activationFunctionFactory = new ActivationFunctionFactory();
-
+    
     private Random random = new Random();
 
     // Dimensions of the neural network
@@ -25,7 +26,9 @@ public class NeuralNetwork {
 
     private SimpleMatrix[] weights;
     private SimpleMatrix[] biases;
-
+    
+    private ArrayList<SimpleMatrix> activations;
+    
     private double learningRate;
 
     private String activationFunctionKey;
@@ -119,12 +122,29 @@ public class NeuralNetwork {
             // Transform array to matrix
             SimpleMatrix output = MatrixUtilities.arrayToMatrix(input);
 
+            //Stores an the activation matrix for each layer
+            activations = new ArrayList<SimpleMatrix>();
+            activations.add(output);
+
             for (int i = 0; i < hiddenLayers + 1; i++) {
                 output = calculateLayer(weights[i], biases[i], output, activationFunction);
+                activations.add(output);
             }
 
             return MatrixUtilities.getColumnFromMatrixAsArray(output, 0);
         }
+    }
+
+    //Return 2D array of the activation values for each neuron in each layer
+    //Neurons are updated every time guess() is called
+    public double[][] getActivations()
+    {
+        double[][] values = new double[hiddenLayers + 2][];
+        for (int m = 0; m < activations.size(); m++)
+        {
+            values[m] = MatrixUtilities.getColumnFromMatrixAsArray(activations.get(m), 0);
+        }
+        return values;
     }
 
     public void train(double[] inputArray, double[] targetArray) {
