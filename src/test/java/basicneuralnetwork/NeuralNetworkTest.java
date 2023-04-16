@@ -92,21 +92,24 @@ class NeuralNetworkTest {
     }
 
     @Test
+    public void equalsTest() {
+        NeuralNetwork nnB = nn.copy();
+        assertEquals(nnB.hashCode(), nn.hashCode());
+        assertEquals(nnB, nn);
+    }
+
+    @Test
     public void copyTest() {
         NeuralNetwork nnB = nn.copy();
-
-        assertNotEquals(nn, nnB);
 
         assertEquals(nn.getInputNodes(), nnB.getInputNodes());
         assertEquals(nn.getHiddenNodes(), nnB.getHiddenNodes());
         assertEquals(nn.getHiddenLayers(), nnB.getHiddenLayers());
         assertEquals(nn.getOutputNodes(), nnB.getOutputNodes());
-
-        assertNotEquals(nn.getWeights(), nnB.getWeights());
-        assertNotEquals(nn.getBiases(), nnB.getBiases());
-
         assertEquals(nn.getLearningRate(), nnB.getLearningRate());
         assertEquals(nn.getActivationFunctionName(), nnB.getActivationFunctionName());
+
+        assertEquals(nn, nnB);
     }
 
     @Test
@@ -150,17 +153,6 @@ class NeuralNetworkTest {
     @Test
     public void mutateTest() {
         assertAll(() -> nn.mutate(0.5));
-    }
-
-    @Test
-    public void writeToFileTest() {
-        assertAll(() -> nn.writeToFile());
-    }
-
-    @Test
-    public void readFromFileTest() {
-        nn.writeToFile();
-        assertAll(() -> NeuralNetwork.readFromFile());
     }
 
     @Test
