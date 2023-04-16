@@ -1,4 +1,4 @@
-package basicneuralnetwork.utilities;
+package de.hatoka.basicneuralnetwork.utilities;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-import basicneuralnetwork.NeuralNetwork;
+import de.hatoka.basicneuralnetwork.NeuralNetwork;
 
 /**
  * Created by KimFeichtinger on 26.04.18.

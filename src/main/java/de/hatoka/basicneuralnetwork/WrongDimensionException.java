@@ -1,4 +1,4 @@
-package basicneuralnetwork;
+package de.hatoka.basicneuralnetwork;
 
 import java.util.Arrays;
 

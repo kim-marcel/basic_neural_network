@@ -1,4 +1,4 @@
-package basicneuralnetwork;
+package de.hatoka.basicneuralnetwork;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -8,9 +8,9 @@ import org.ejml.simple.SimpleMatrix;
 
 import com.google.gson.annotations.Expose;
 
-import basicneuralnetwork.activationfunctions.ActivationFunction;
-import basicneuralnetwork.activationfunctions.ActivationFunctionFactory;
-import basicneuralnetwork.utilities.MatrixUtilities;
+import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunction;
+import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunctionFactory;
+import de.hatoka.basicneuralnetwork.utilities.MatrixUtilities;
 
 /**
  * Created by KimFeichtinger on 04.03.18.

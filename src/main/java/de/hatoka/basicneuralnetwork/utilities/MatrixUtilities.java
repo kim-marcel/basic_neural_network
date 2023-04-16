@@ -1,7 +1,8 @@
-package basicneuralnetwork.utilities;
+package de.hatoka.basicneuralnetwork.utilities;
 
-import basicneuralnetwork.WrongDimensionException;
 import org.ejml.simple.SimpleMatrix;
+
+import de.hatoka.basicneuralnetwork.WrongDimensionException;
 
 import java.util.Random;
 

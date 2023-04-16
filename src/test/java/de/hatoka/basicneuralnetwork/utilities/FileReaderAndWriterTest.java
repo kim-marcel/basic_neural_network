@@ -1,4 +1,4 @@
-package basicneuralnetwork.utilities;
+package de.hatoka.basicneuralnetwork.utilities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import basicneuralnetwork.NeuralNetwork;
+import de.hatoka.basicneuralnetwork.NeuralNetwork;
 
 class FileReaderAndWriterTest
 {

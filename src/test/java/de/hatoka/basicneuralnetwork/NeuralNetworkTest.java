@@ -1,12 +1,17 @@
-package basicneuralnetwork;
+package de.hatoka.basicneuralnetwork;
 
-import basicneuralnetwork.activationfunctions.ActivationFunction;
-import basicneuralnetwork.activationfunctions.SigmoidActivationFunction;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.ejml.simple.SimpleMatrix;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunction;
+import de.hatoka.basicneuralnetwork.activationfunctions.SigmoidActivationFunction;
 
 class NeuralNetworkTest {
 

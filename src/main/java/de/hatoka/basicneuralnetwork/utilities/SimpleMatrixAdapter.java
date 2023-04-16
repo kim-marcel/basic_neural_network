@@ -1,4 +1,4 @@
-package basicneuralnetwork.utilities;
+package de.hatoka.basicneuralnetwork.utilities;
 
 import java.lang.reflect.Type;
 

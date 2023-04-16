@@ -1,14 +1,15 @@
-package basicneuralnetwork.utilities;
-
-import basicneuralnetwork.WrongDimensionException;
-import org.ejml.simple.SimpleMatrix;
-import org.junit.jupiter.api.Test;
-
-import java.util.Random;
+package de.hatoka.basicneuralnetwork.utilities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Random;
+
+import org.ejml.simple.SimpleMatrix;
+import org.junit.jupiter.api.Test;
+
+import de.hatoka.basicneuralnetwork.WrongDimensionException;
 
 class MatrixUtilitiesTest {
 
