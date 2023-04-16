@@ -1,4 +1,4 @@
-package basicneuralnetwork;
+package de.hatoka.basicneuralnetwork;
 
 import java.util.Arrays;
 
@@ -7,7 +7,9 @@ import java.util.Arrays;
  */
 public class WrongDimensionException extends RuntimeException {
 
-    public WrongDimensionException(int actual, int expected, String layer){
+    private static final long serialVersionUID = 7161116748701896260L;
+
+	public WrongDimensionException(int actual, int expected, String layer){
         super("Expected " + expected + " value(s) for " + layer + "-layer but got " + actual + ".");
     }
 

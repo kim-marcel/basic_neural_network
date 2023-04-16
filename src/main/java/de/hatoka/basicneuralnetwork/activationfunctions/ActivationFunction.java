@@ -1,4 +1,4 @@
-package basicneuralnetwork.activationfunctions;
+package de.hatoka.basicneuralnetwork.activationfunctions;
 
 import org.ejml.simple.SimpleMatrix;
 
