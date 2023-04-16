@@ -1,0 +1,24 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "maven" # See documentation for possible values
+    target-branch: "master"
+    open-pull-requests-limit: 2 # Allow up globally to 2 simultaneously open pull requests for dependencies
+    directory: "/" # Location of package manifests
+    commit-message:
+      prefix: "Dependabot"
+    pull-request-branch-name:
+      separator: "/"
+    labels:
+      - "dependencies"
+    schedule:
+      interval: "weekly"
+    #  ignore:
+      # Ignore all major updates for now until additional version ignores are working
+      # Security updates are not affected by this ignore filter and still will be updated
+    #  - dependency-name: "*"
+    #    update-types: [ "version-update:semver-major" ]
