@@ -2,6 +2,8 @@
 .project
 .classpath
 .settings/**
+.envrc
+.gradle/**
 
 target/**
 build/**
