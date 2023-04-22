@@ -1,13 +1,10 @@
 .idea
 .project
 .classpath
-.settings/**
 .envrc
-.gradle/**
 
+.settings/**
+.gradle/**
 target/**
 build/**
-
-out/**
-artifacts/**
-/target/
+bin/**

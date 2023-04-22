@@ -7,7 +7,11 @@ The library can also be used with [Processing](https://processing.org). Just dow
 If you want to learn more about Neural Networks check out these YouTube-playlists:
 - [Neural Networks - The Nature of Code](https://www.youtube.com/watch?v=XJ7HLz9VYz0&list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh) by The Coding Train (Daniel Shiffman)
 - [Neural Networks](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) by 3Blue1Brown
- 
+
+The source is a fork from [Kim Marcel / Basic Neural Network](https://github.com/kim-marcel/basic_neural_network) with some smaller adjustments:
+- library is available via [Maven Central]
+- build is based on gradle and executed via github actions
+
 ## Features
 
 - Neural Network with variable amounts of inputs, hidden nodes and outputs
@@ -24,32 +28,23 @@ If you want to learn more about Neural Networks check out these YouTube-playlist
 This section describes how a working copy of this project can be set up on your local machine for testing and development purposes. If you just want to use the library you can skip this part.
 
 ### Prerequisites
-[Maven](https://maven.apache.org) has to be installed:
-- [Download Maven](https://maven.apache.org/download.cgi)
-- [Installation guide](https://maven.apache.org/install.html)
+- [Java JDK 17](https://adoptium.net/temurin/releases/) needs to be installed and JAVA_HOME must be set
 
-### Installing
+### Build and Testing
 ```
-mvn install
-```
-All the dependencies specified in pom.xml will be installed.
-
-### Building
-```
-mvn package
-```
-In the directory ```/target``` of the project two jar-files will be generated. One with all the dependencies included and one without.
-
-### Testing
-```
-mvn clean test
+./gradlew test
 ```
 Runs all JUnit-Tests specified in this project.
 
 ## Use the library
+Dependencies
+```gradle
+implementation 'de.hatoka.neuralnetwork:neuralnetwork:1.0.0'
+```
 
 Constructors:
 ```java
+import de.hatoka.basicneuralnetwork.NeuralNetwork;
 // Neural network with 2 inputs, 1 hidden layer, 4 hidden nodes and 1 output
 NeuralNetwork nn0 = new NeuralNetwork(2, 4, 1);
 
@@ -68,15 +63,15 @@ nn.guess(testingData);
 
 Read and write from/to file:
 ```java
-// Reads from a (previously generated) JSON-file the nn-Data and returns a NeuralNetwork-object
-NeuralNetwork myNN = NeuralNetwork.readFromFile();
-// Load from a specifiy file (by default it will look for a file called "nn_data.json")
-NeuralNetwork myNN = NeuralNetwork.readFromFile("my_nn_data.json");
+import de.hatoka.basicneuralnetwork.utilities.FileReaderAndWriter;
+FileReaderAndWriter networkReader = new FileReaderAndWriter()
+Path file = Files.createTempFile("neuro1_", ".json");
+underTest.write(network, file);
 
-// Writes a JSON-file with the current "state" (weights and biases) of the NN
-myNN.writeToFile();
-// Specify a custom file name (by default it will be saved as "nn_data.json")
-myNN.writeToFile("my_nn_data");
+// Reads from a JSON-resource the nn-Data and returns a NeuralNetwork-object
+NeuralNetwork networkViaResource = networkReader.read(this.getClass().getClassLoader().getResourceAsStream(resource));
+// Load from a specifiy file
+NeuralNetwork networkViaFile = networkReader.read(file);
 ```
 
 Adjust the learning rate:
@@ -111,18 +106,10 @@ NeuralNetwork merged = nnA.merge(nnB, 0.2);
 // Mutate the weights and biases of a Neural Network with custom probability
 nn.mutate(0.1);
 ```
-More detailed examples can be found below.
-
-## Download
-
-If you want to use this library you can download [v0.5](https://github.com/kim-marcel/basic_neural_network/releases/download/v0.5/basic_neural_network-v0.5.jar) here or check the release tab of this repository for other versions.
-
 ## Examples
 
 - [XOR solved with Basic Neural Network Library](https://github.com/kim-marcel/xor_with_nn)
 - [Doodle Classification in Processing](https://github.com/kim-marcel/doodle_classifier)
-
-If you want you can add your own projects, that were build with this library, to this list. Please send me a pull request.
 
 ## TODO
 
@@ -141,4 +128,4 @@ If you want to contribute by implementing any of these features or your own idea
 
 - [EJML](https://www.ejml.org) used for Matrix math
 - [Google Gson](https://github.com/google/gson) library
-- [Maven](https://maven.apache.org) build- and dependency-management
+- [Gradle 8.1.1](https://docs.gradle.org/8.1.1/release-notes.html) build tooling
