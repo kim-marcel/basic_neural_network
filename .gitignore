@@ -2,9 +2,9 @@
 .project
 .classpath
 .envrc
-
 .settings/**
 .gradle/**
+.vscode/**
 target/**
 build/**
 bin/**

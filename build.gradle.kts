@@ -12,7 +12,7 @@ description="Simple Neural Network"
 
 val sonatypeUsername: String? by project
 val sonatypePassword: String? by project
-val sonatypeRepo: Any ? by project
+val sonatypeRepo: Any by project
 
 repositories {
     gradlePluginPortal()
