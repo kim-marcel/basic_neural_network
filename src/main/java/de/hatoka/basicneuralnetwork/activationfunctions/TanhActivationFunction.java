@@ -7,8 +7,7 @@ import org.ejml.simple.SimpleMatrix;
  */
 public class TanhActivationFunction implements ActivationFunction {
 
-    private static final String NAME = "TANH";
-
+    @Override
     public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
 
@@ -26,6 +25,7 @@ public class TanhActivationFunction implements ActivationFunction {
         return output;
     }
 
+    @Override
     public SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
 
@@ -40,9 +40,5 @@ public class TanhActivationFunction implements ActivationFunction {
         // Formula:
         // 1 - (input * input);
         return output;
-    }
-
-    public String getName() {
-        return NAME;
     }
 }

@@ -9,7 +9,7 @@ import org.ejml.simple.SimpleMatrix;
 import com.google.gson.annotations.Expose;
 
 import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunction;
-import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunctionFactory;
+import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunctions;
 import de.hatoka.basicneuralnetwork.utilities.MatrixUtilities;
 
 /**
@@ -17,7 +17,6 @@ import de.hatoka.basicneuralnetwork.utilities.MatrixUtilities;
  */
 public class NeuralNetwork
 {
-    private ActivationFunctionFactory activationFunctionFactory = new ActivationFunctionFactory();
     private Random random = new Random();
 
     // Dimensions of the neural network
@@ -39,7 +38,7 @@ public class NeuralNetwork
     private double learningRate;
 
     @Expose(serialize = true, deserialize = true)
-    private String activationFunctionKey;
+    private ActivationFunctions activationFunctionKey;
 
     // Constructor
     // Generate a new neural network with 1 hidden layer with the given amount of
@@ -96,7 +95,7 @@ public class NeuralNetwork
         this.setLearningRate(0.1);
 
         // Sigmoid is the default ActivationFunction
-        this.setActivationFunction(ActivationFunction.SIGMOID);
+        this.setActivationFunction(ActivationFunctions.SIGMOID);
     }
 
     private void initializeWeights()
@@ -148,9 +147,7 @@ public class NeuralNetwork
         }
         else
         {
-            // Get ActivationFunction-object from the map by key
-            ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(
-                            activationFunctionKey);
+            ActivationFunction activationFunction = activationFunctionKey.getFunction();
 
             // Transform array to matrix
             SimpleMatrix output = MatrixUtilities.arrayToMatrix(input);
@@ -177,8 +174,7 @@ public class NeuralNetwork
         else
         {
             // Get ActivationFunction-object from the map by key
-            ActivationFunction activationFunction = activationFunctionFactory.getActivationFunctionByKey(
-                            activationFunctionKey);
+            ActivationFunction activationFunction = activationFunctionKey.getFunction();
 
             // Transform 2D array to matrix
             SimpleMatrix input = MatrixUtilities.arrayToMatrix(inputArray);
@@ -327,19 +323,14 @@ public class NeuralNetwork
                         : activationFunction.applyActivationFunctionToMatrix(input);
     }
 
-    public void addActivationFunction(String key, ActivationFunction activationFunction)
+    public void setActivationFunction(ActivationFunctions activationFunction)
     {
-        activationFunctionFactory.addActivationFunction(key, activationFunction);
+        this.activationFunctionKey = activationFunction;
     }
 
     public String getActivationFunctionName()
     {
-        return activationFunctionKey;
-    }
-
-    public void setActivationFunction(String activationFunction)
-    {
-        this.activationFunctionKey = activationFunction;
+        return this.activationFunctionKey.name();
     }
 
     public double getLearningRate()
@@ -445,7 +436,7 @@ public class NeuralNetwork
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Objects.hash(activationFunctionKey, hiddenLayers, hiddenNodes, inputNodes,
+        result = prime * result + Objects.hash(activationFunctionKey.name(), hiddenLayers, hiddenNodes, inputNodes,
                         learningRate, outputNodes);
         result = prime * result + hashCode(biases);
         result = prime * result + hashCode(weights);
@@ -465,5 +456,4 @@ public class NeuralNetwork
                         && Double.doubleToLongBits(learningRate) == Double.doubleToLongBits(other.learningRate)
                         && outputNodes == other.outputNodes && equalsMatrix(weights, other.weights);
     }
-
 }

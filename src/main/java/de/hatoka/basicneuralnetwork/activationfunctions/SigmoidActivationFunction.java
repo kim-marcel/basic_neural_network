@@ -7,9 +7,7 @@ import org.ejml.simple.SimpleMatrix;
  */
 public class SigmoidActivationFunction implements ActivationFunction {
 
-    private static final String NAME = "SIGMOID";
-
-    // Sigmoid
+    @Override
     public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
 
@@ -26,7 +24,10 @@ public class SigmoidActivationFunction implements ActivationFunction {
         return output;
     }
 
-    // Derivative of Sigmoid (not real derivative because Activation function has already been applied to the input)
+    /**
+     * Derivative of Sigmoid (not real derivative because Activation function has already been applied to the input)
+     */
+    @Override
     public SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input) {
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
 
@@ -41,9 +42,5 @@ public class SigmoidActivationFunction implements ActivationFunction {
         // Formula:
         // input * (1 - input);
         return output;
-    }
-
-    public String getName() {
-        return NAME;
     }
 }

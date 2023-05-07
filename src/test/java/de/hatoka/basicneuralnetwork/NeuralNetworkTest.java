@@ -10,8 +10,7 @@ import org.ejml.simple.SimpleMatrix;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunction;
-import de.hatoka.basicneuralnetwork.activationfunctions.SigmoidActivationFunction;
+import de.hatoka.basicneuralnetwork.activationfunctions.ActivationFunctions;
 
 class NeuralNetworkTest {
 
@@ -30,7 +29,7 @@ class NeuralNetworkTest {
     @Test
     public void initializeDefaultValuesTest() {
         assertEquals(0.1, nn.getLearningRate());
-        assertEquals(ActivationFunction.SIGMOID, nn.getActivationFunctionName());
+        assertEquals(ActivationFunctions.SIGMOID.name(), nn.getActivationFunctionName());
     }
 
     @Test
@@ -159,14 +158,4 @@ class NeuralNetworkTest {
     public void mutateTest() {
         assertAll(() -> nn.mutate(0.5));
     }
-
-    @Test
-    public void addActivationFunctionTest() {
-        ActivationFunction activation = new SigmoidActivationFunction();
-        nn.addActivationFunction("TestFunction", activation);
-        nn.setActivationFunction("TestFunction");
-        assertEquals("TestFunction", nn.getActivationFunctionName());
-        assertAll(() -> nn.guess(new double[] {1}));
-    }
-
 }
