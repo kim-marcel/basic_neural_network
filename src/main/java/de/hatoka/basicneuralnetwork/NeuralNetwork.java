@@ -319,8 +319,8 @@ public class NeuralNetwork
     {
         // Applies either derivative of activation function or regular activation
         // function to a matrix and returns the result
-        return derivative ? activationFunction.applyDerivativeOfActivationFunctionToMatrix(input)
-                        : activationFunction.applyActivationFunctionToMatrix(input);
+        return derivative ? activationFunction.invert(input)
+                        : activationFunction.activate(input);
     }
 
     public void setActivationFunction(ActivationFunctions activationFunction)

@@ -1,44 +1,25 @@
 package de.hatoka.basicneuralnetwork.activationfunctions;
 
-import org.ejml.simple.SimpleMatrix;
-
 /**
- * Created by KimFeichtinger on 20.04.18.
+ * TanhActivationFunction 
+ * <ul>
+ * <li>activate: Math.tanh(input)</li>
+ * <li>invert:   1 - (input * input)</li>
+ * </ul>
+ * @author KimFeichtinger
+ * @author tbergmann (reduced to function) 
  */
-public class TanhActivationFunction implements ActivationFunction {
-
+public class TanhActivationFunction implements ActivationFunction
+{
     @Override
-    public SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input) {
-        SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
-
-        for (int i = 0; i < input.numRows(); i++) {
-            // Column is always 0 because input has only one column
-            double value = input.get(i, 0);
-            double result = Math.tanh(value);
-
-            output.set(i, 0, result);
-        }
-
-        // Formula:
-        // 2 * (1 / (1 + Math.exp(2 * -input))) - 1;
-        // Math.tanh(input);
-        return output;
+    public double activate(double input)
+    {
+        return Math.tanh(input);
     }
 
     @Override
-    public SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input) {
-        SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
-
-        for (int i = 0; i < input.numRows(); i++) {
-            // Column is always 0 because input has only one column
-            double value = input.get(i, 0);
-            double result = 1 - (value * value);
-
-            output.set(i, 0, result);
-        }
-
-        // Formula:
-        // 1 - (input * input);
-        return output;
+    public double invert(double input)
+    {
+        return 1 - (input * input);
     }
 }
